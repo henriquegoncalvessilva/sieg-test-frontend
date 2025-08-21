@@ -1,10 +1,14 @@
 import cartIcon from "../../assets/icons/cart.svg";
 import searchIcon from "../../assets/icons/search.svg";
+import Filters from "../filters/filters";
 
 const Header = () => {
     return (
-        <header className="py-5 px-3 w-full flex justify-center">
-            <div className="flex flex-col md:flex-row-reverse items-center justify-between w-80 md:w-full gap-8">
+        <header className="py-5 px-3 w-full flex flex-col justify-center gap-6">
+            <h1 className="font-bold text-left text-[#252427] text-xl w-full  hidden md:block">
+                Catálogo de Produtos
+            </h1>
+            <div className="flex flex-col md:flex-row-reverse items-center justify-between w-full  gap-4">
                 <div className="flex md:flex-row-reverse justify-between w-full">
                     <div className="flex justify-between w-full md:w-fit">
                         <h1 className="font-bold text-left text-[#252427] text-xl w-full md:hidden">
@@ -32,6 +36,7 @@ const Header = () => {
                     />
                 </div>
             </div>
+            <Filters />
         </header>
     );
 };
