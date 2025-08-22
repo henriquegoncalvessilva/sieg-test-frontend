@@ -2,10 +2,6 @@ import cartIcon from "../../assets/icons/cart.svg";
 import searchIcon from "../../assets/icons/search.svg";
 import Drawer from "../drawer/drawer";
 import { useStore } from "../../store/useStore";
-<<<<<<< HEAD
-=======
-import { useResponsive } from "../../hooks/useResponsive";
->>>>>>> 571d754f54e4ee4094dd344029c037384f33cd0a
 
 const Header = () => {
     const drawer = useStore((state) => state.toggleDrawer);
