@@ -7,6 +7,7 @@ interface StoreState {
     inputSearch: string;
     produtos: Produto[];
     toggleDrawer: () => void;
+    clearFilters: () => void;
     incrementCountCartItem: () => void;
     setInputValue: (value: string) => void;
     decrementCountCartItem: () => void;
@@ -21,6 +22,10 @@ export const useProductStore = create<StoreState>((set) => ({
     limit: 10,
     produtos: [],
     totalPages: 1,
+    clearFilters: () =>
+        set({
+            inputSearch: "",
+        }),
     setInputValue(value) {
         set({
             inputSearch: value,

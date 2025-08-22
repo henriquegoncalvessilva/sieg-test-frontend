@@ -1,11 +1,34 @@
 import cartIcon from "../../assets/icons/cart.svg";
 import searchIcon from "../../assets/icons/search.svg";
 import Drawer from "../drawer/drawer";
-import { useStore } from "../../store/useStore";
+import { useProductStore } from "../../store/useProductStore";
+import { useEffect, useRef } from "react";
+import { useDebounce } from "../../hooks/useDebounce";
+import useProducts from "../../hooks/useProducts";
 
 const Header = () => {
-    const drawer = useStore((state) => state.toggleDrawer);
-    const countCartItem = useStore((state) => state.countCartItem);
+    const drawer = useProductStore((state) => state.toggleDrawer);
+    const countCartItem = useProductStore((state) => state.countCartItem);
+    const input = useRef(null);
+    const valueSearch = useProductStore((state) => state.inputSearch);
+    const setInputValue = useProductStore((state) => state.setInputValue);
+    const debouncedSearch = useDebounce(valueSearch.trim(), 300);
+
+    useProducts({ search: debouncedSearch });
+    const { inputSearch } = useProductStore();
+
+    useEffect(() => {
+        if (debouncedSearch) {
+            setInputValue(debouncedSearch);
+        }
+    }, [debouncedSearch]);
+
+    useEffect(() => {
+        if (input.current) {
+            (input.current as HTMLInputElement).value = inputSearch;
+        }
+    }, [inputSearch]);
+
     return (
         <>
             <header className="py-5 w-full flex flex-col justify-center gap-6">
@@ -40,6 +63,8 @@ const Header = () => {
                             type="text"
                             placeholder="Pesquisar produto"
                             className="w-full py-2 px-3 "
+                            ref={input}
+                            onChange={(e) => setInputValue(e.target.value)}
                         />
                     </div>
                 </div>

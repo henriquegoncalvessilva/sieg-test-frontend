@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useProductStore } from "../../store/useProductStore";
 
 type FiltersProps = {
     className?: string;
@@ -9,10 +10,10 @@ const Filters = ({ className }: FiltersProps) => {
     const [selectedPriceRange, setSelectedPriceRange] = useState<
         string | undefined
     >("");
+    const { clearFilters, inputSearch } = useProductStore();
 
     const handleClearFilters = () => {
-        setSelectedCategory("");
-        setSelectedPriceRange("");
+        clearFilters();
     };
 
     return (
@@ -23,7 +24,12 @@ const Filters = ({ className }: FiltersProps) => {
                 <h2 className="font-bold text-left text-[#252427] text-xl">
                     Filtros
                 </h2>
-                <button type="button" onClick={handleClearFilters}>
+                <button
+                    disabled={inputSearch == ""}
+                    type="button"
+                    className="cursor-pointer disabled:text-gray-400 focus:border p-2"
+                    onClick={handleClearFilters}
+                >
                     Limpar Filtros
                 </button>
             </div>
