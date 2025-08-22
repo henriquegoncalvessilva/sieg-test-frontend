@@ -1,10 +1,12 @@
-import { useStore } from "../../store/useStore";
+import { useProductStore } from "../../store/useProductStore";
 
 const Drawer = () => {
-    const openDrawer = useStore((state) => state.isDrawerOpen);
-    const toggleDrawer = useStore((state) => state.toggleDrawer);
-    const countItems = useStore((state) => state.countCartItem);
-    const decrementItem = useStore((state) => state.decrementCountCartItem);
+    const openDrawer = useProductStore((state) => state.isDrawerOpen);
+    const toggleDrawer = useProductStore((state) => state.toggleDrawer);
+    const countItems = useProductStore((state) => state.countCartItem);
+    const decrementItem = useProductStore(
+        (state) => state.decrementCountCartItem
+    );
 
     return (
         <>
