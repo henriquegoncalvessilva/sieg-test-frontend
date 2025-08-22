@@ -9,12 +9,12 @@ const Header = () => {
                 Catálogo de Produtos
             </h1>
             <div className="flex flex-col md:flex-row-reverse items-center justify-between w-full  gap-4">
-                <div className="flex md:flex-row-reverse justify-between w-full">
+                <div className="flex md:flex-row-reverse justify-between w-full md:w-fit">
                     <div className="flex justify-between w-full md:w-fit">
                         <h1 className="font-bold text-left text-[#252427] text-xl w-full md:hidden">
                             Catálogo de Produtos
                         </h1>
-                        <div className="relative">
+                        <div className="relative ">
                             <img
                                 className="self-end cursor-pointer"
                                 src={cartIcon}
@@ -27,7 +27,7 @@ const Header = () => {
                         </div>
                     </div>
                 </div>
-                <div className="bg-[#f3f3f3] w-full flex pl-2 rounded-lg">
+                <div className="bg-white w-full flex pl-2 rounded-lg ">
                     <img src={searchIcon} alt="" width={26} />
                     <input
                         type="text"
