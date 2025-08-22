@@ -1,7 +1,8 @@
 export default interface CardItemI {
     id: number;
-    image: string;
-    nome: string;
-    avaliacoes: number;
-    preco: number;
+    thumbnail: string;
+    title: string;
+    rating: number;
+    price: number;
+    category: string;
 }
