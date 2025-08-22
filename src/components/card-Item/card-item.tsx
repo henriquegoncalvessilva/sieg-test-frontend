@@ -1,5 +1,6 @@
 import HeartIcon from "../../assets/icons/heart.svg";
 import CartCard from "../../assets/icons/cart-card.svg";
+import { useStore } from "../../store/useStore";
 
 type CardItemProps = {
     id: number;
@@ -10,6 +11,7 @@ type CardItemProps = {
 };
 
 const CardItem = ({ nome, preco, avaliacoes, image, id }: CardItemProps) => {
+    const addItemToCart = useStore((state) => state.incrementCountCartItem);
     return (
         <>
             <div className="bg-[#fffffe] w-[196px] h-[308px] relative text-black p-2 pt-4">
@@ -32,7 +34,7 @@ const CardItem = ({ nome, preco, avaliacoes, image, id }: CardItemProps) => {
                     <div className="flex"> Estrelas</div>
                     <strong>{preco}</strong>
                 </div>
-                <div className="relative">
+                <div className="relative" onClick={addItemToCart}>
                     <img
                         src={CartCard}
                         width={20}
