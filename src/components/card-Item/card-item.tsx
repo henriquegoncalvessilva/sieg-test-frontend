@@ -38,7 +38,7 @@ const CardItem = ({ nome, preco, avaliacoes, image, id }: CardItemProps) => {
                         width={20}
                         height={20}
                         loading="lazy"
-                        className="absolute text-red-500 z-10 right-3 bottom-5"
+                        className="absolute right-3 bottom-5"
                     />
                 </div>
             </div>
