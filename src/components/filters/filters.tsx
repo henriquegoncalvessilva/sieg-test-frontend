@@ -5,7 +5,7 @@ type FiltersProps = {
 };
 
 const Filters = ({ className }: FiltersProps) => {
-    const [selectedCategory, setSelectedCategory] = useState<string | null>("");
+    const [selectedCategory, setSelectedCategory] = useState<string>("");
     const [selectedPriceRange, setSelectedPriceRange] = useState<
         string | undefined
     >("");
