@@ -1,6 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-const Filters = () => {
+type FiltersProps = {
+    className?: string;
+};
+
+const Filters = ({ className }: FiltersProps) => {
     const [selectedCategory, setSelectedCategory] = useState<string | null>("");
     const [selectedPriceRange, setSelectedPriceRange] = useState<
         string | undefined
@@ -11,13 +15,10 @@ const Filters = () => {
         setSelectedPriceRange("");
     };
 
-    useEffect(() => {
-        console.log("selectedCategory:", selectedCategory);
-        console.log("selectedPriceRange:", selectedPriceRange);
-    }, [selectedCategory, selectedPriceRange]);
-
     return (
-        <section className="flex flex-col w-full justify-between items-center gap-4 ">
+        <section
+            className={`flex flex-col justify-between items-center gap-4 ${className}`}
+        >
             <div className="flex gap-4 justify-between items-center w-full">
                 <h2 className="font-bold text-left text-[#252427] text-xl">
                     Filtros
@@ -63,20 +64,30 @@ const Filters = () => {
                         Groceries
                     </option>
                 </select>
-                <div className="flex items-center gap-2">
-                    <label htmlFor="price-range" className="whitespace-nowrap">
-                        Preço:
+                <div className="flex  xl:flex-col items-center gap-2 w-full ">
+                    <label
+                        htmlFor="price-range"
+                        className="p-2 rounded w-full  text-[#252427] text-xl "
+                    >
+                        Faixa de preço: R$ {selectedPriceRange}
                     </label>
-                    <input
-                        type="range"
-                        id="price-range"
-                        min="1"
-                        max="10000"
-                        className="w-48"
-                        defaultValue={selectedPriceRange}
-                        onChange={(e) => setSelectedPriceRange(e.target.value)}
-                    />
-                    <span>R$ 0 - R$ 10.000</span>
+                    <div className="flex w-full text-black items-center">
+                        <p className="w-full text-center font-bold">R$ 0</p>
+                        <input
+                            type="range"
+                            id="price-range"
+                            min="1"
+                            max="10000"
+                            className="w-48"
+                            defaultValue={selectedPriceRange}
+                            onChange={(e) =>
+                                setSelectedPriceRange(e.target.value)
+                            }
+                        />
+                        <p className="w-full text-center font-bold ">
+                            R$ 10.000
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
