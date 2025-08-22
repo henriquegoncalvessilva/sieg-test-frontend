@@ -1,28 +1,48 @@
 import HeartIcon from "../../assets/icons/heart.svg";
+import CartCard from "../../assets/icons/cart-card.svg";
 
-const CardItem = () => {
+type CardItemProps = {
+    id: number;
+    nome: string;
+    image: string;
+    avaliacoes: number;
+    preco: number;
+};
+
+const CardItem = ({ nome, preco, avaliacoes, image, id }: CardItemProps) => {
     return (
-        <div className="bg-[#fffffe] w-fit h-fit relative text-black p-2 pt-4">
-            <img
-                src={HeartIcon}
-                width={20}
-                height={20}
-                loading="lazy"
-                className="absolute  right-3 text-black"
-            />
-            <img
-                loading="lazy"
-                src="https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/1.webp"
-                width={180}
-                height={180}
-                alt=""
-            />
-            <div className="flex flex-col gap-0 justify-between p-4">
-                <strong>NOme do item</strong>
-                <div className="flex"> Estrelas</div>
-                <strong>Valor do item</strong>
+        <>
+            <div className="bg-[#fffffe] w-[196px] h-[308px] relative text-black p-2 pt-4">
+                <img
+                    src={HeartIcon}
+                    width={20}
+                    height={20}
+                    loading="lazy"
+                    className="absolute  right-3 text-black"
+                />
+                <img
+                    loading="lazy"
+                    src={image}
+                    width={180}
+                    height={180}
+                    alt=""
+                />
+                <div className="flex flex-col gap-0 justify-between p-4">
+                    <strong>{nome}</strong>
+                    <div className="flex"> Estrelas</div>
+                    <strong>{preco}</strong>
+                </div>
+                <div className="relative">
+                    <img
+                        src={CartCard}
+                        width={20}
+                        height={20}
+                        loading="lazy"
+                        className="absolute text-red-500 z-10 right-3 bottom-5"
+                    />
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 
