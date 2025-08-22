@@ -1,4 +1,4 @@
-export default interface CardItemI {
+export default interface Produto {
     id: number;
     thumbnail: string;
     title: string;
