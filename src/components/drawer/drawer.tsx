@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import type Produto from "../../interfaces/card-item.interface";
 import { useProductStore } from "../../store/useProductStore";
+import type { Produto } from "../../interfaces/card-item.interface";
 
 const Drawer = () => {
     const openDrawer = useProductStore((state) => state.isDrawerOpen);
@@ -8,6 +8,9 @@ const Drawer = () => {
     const totalCartItems = useProductStore((state) => state.totalCartItems);
     const removeItem = useProductStore((state) => state.removeCarItem);
     const incrementItem = useProductStore((state) => state.incrementItem);
+    const descrementItem = useProductStore(
+        (state) => state.decrementCountCartItem
+    );
 
     const handleRemoveItem = (item: Produto) => {
         removeItem(item);
@@ -34,7 +37,9 @@ const Drawer = () => {
                 }`}
             >
                 <div className="flex justify-between items-center p-4 border-b text-black">
-                    <h2 className="text-lg font-bold">Seu Carrinho</h2>
+                    <h2 className="text-lg font-bold">
+                        Seu Carrinho ( Total - {totalCartItems?.length} )
+                    </h2>
                     <button
                         aria-pressed="true"
                         type="button"
@@ -44,38 +49,86 @@ const Drawer = () => {
                         ✕
                     </button>
                 </div>
-                <div className="p-4 space-y-4 text-black overflow-auto overflow-x-hidden h-3/5">
+                <div
+                    className={`p-4 space-y-4 text-black overflow-auto overflow-x-hidden h-3/5 flex gap-8 flex-col ${
+                        totalCartItems?.length === 0
+                            ? "items-center justify-center"
+                            : "items-start justify-start"
+                    }`}
+                >
                     {totalCartItems &&
                         totalCartItems.length > 0 &&
                         totalCartItems.map((item) => (
-                            <div key={item.id}>
-                                <p>{item.title}</p>
-                                <p>{item.price}</p>
-                                <p>{item.quantidade}</p>
-                                <button
-                                    aria-pressed="true"
-                                    type="button"
-                                    className="bg-gray-400 p-2 cursor-pointer"
-                                    onClick={() => incrementItem(item, 10)}
-                                >
-                                    adicionar
-                                </button>
-                                <button
-                                    aria-pressed="true"
-                                    type="button"
-                                    className="bg-gray-400 p-2 cursor-pointer"
-                                    onClick={() => handleRemoveItem(item)}
-                                >
-                                    Remover
-                                </button>
+                            <div
+                                key={item.id}
+                                className="flex flex-col items-start justify-between m-0 w-full"
+                            >
+                                <div className="flex flex-col gap-2 w-full justify-between">
+                                    <img
+                                        src={item.thumbnail}
+                                        alt={item.title}
+                                        width={120}
+                                        height={100}
+                                    />
+                                    <div className="flex items-center gap-2 ">
+                                        <small>Produto:</small>
+                                        <p>{item.title}</p>
+                                    </div>
+                                    <div className="flex items-center gap-0 ">
+                                        <small>Preço: $</small>
+                                        <p>{item.price}</p>
+                                    </div>
+
+                                    <div className="flex items-center gap-2 ">
+                                        <small>Quantidade: </small>
+
+                                        <div className="flex items-center gap-2">
+                                            <button
+                                                aria-pressed="true"
+                                                type="button"
+                                                className="w-7 h-7  bg-black text-white rounded-lg cursor-pointer"
+                                                onClick={() =>
+                                                    incrementItem(item, 1)
+                                                }
+                                            >
+                                                +
+                                            </button>
+                                            <p>{item.quantidade}</p>
+                                            <button
+                                                aria-pressed="true"
+                                                type="button"
+                                                className="w-7 h-7  bg-black text-white rounded-lg cursor-pointer"
+                                                onClick={() =>
+                                                    descrementItem(item, 1)
+                                                }
+                                            >
+                                                -
+                                            </button>
+                                            <button
+                                                aria-pressed="true"
+                                                type="button"
+                                                className="w-7 h-7  bg-black text-white rounded-lg cursor-pointer"
+                                                onClick={() =>
+                                                    handleRemoveItem(item)
+                                                }
+                                            >
+                                                x
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         ))}
+                    {totalCartItems && totalCartItems.length === 0 && (
+                        <h2 className="items-center  text-center text-4xl font-bold ">
+                            Carrinho Vazio
+                        </h2>
+                    )}
                 </div>
-                <div className="p-4 border-t">
-                    <p>Subtotal</p>
+                <div className="p-4 border-t h-fit flex items-center justify-start">
+                    <p>Subtotal: $ </p>
                     {totalCartItems && totalCartItems.length > 0 && (
                         <p>
-                            ${" "}
                             {totalCartItems
                                 .reduce(
                                     (acc, item) =>
@@ -88,9 +141,10 @@ const Drawer = () => {
                 </div>
                 <div className="absolute bottom-0 w-full p-4 border-t">
                     <button
+                        disabled={totalCartItems?.length === 0}
                         aria-pressed="true"
                         type="button"
-                        className="w-full bg-black text-white py-2 rounded-lg cursor-pointer"
+                        className="w-full bg-black text-white py-2 rounded-lg cursor-pointer disabled:cursor-default disabled:opacity-50"
                     >
                         Finalizar Compra
                     </button>
