@@ -45,9 +45,7 @@ const useProducts = ({ category, search }: UseProductsOptions) => {
             try {
                 let productsFetch: Produto[] = [];
 
-                if (category) {
-                    productsFetch = await fetchProductsByCategory(category);
-                } else if (search) {
+                if (search) {
                     productsFetch = await fetchProductsByName(search);
                 } else {
                     productsFetch = await fetchAllProducts();
@@ -64,7 +62,7 @@ const useProducts = ({ category, search }: UseProductsOptions) => {
         };
 
         fetchProducts();
-    }, [category, search]);
+    }, [search]);
 
     return { data, error };
 };
