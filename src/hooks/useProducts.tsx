@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import type CardItemI from "../interfaces/card-item.interface";
+import { useProductStore } from "../store/useProductStore";
 
 interface UseProductsOptions {
     category?: string;
@@ -8,9 +9,34 @@ interface UseProductsOptions {
 }
 
 const useProducts = ({ category, search }: UseProductsOptions) => {
-    const [products, setProducts] = useState<CardItemI[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const setProductsData = useProductStore((state) => state.setProductsData);
+    const data = useProductStore((state) => state.produtos);
+    const [debouncedSearch, setDebouncedSearch] = useState(search);
+
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedSearch(search);
+        }, 500);
+        return () => clearTimeout(handler);
+    }, [search]);
+
+    const fetchProductsByUrl = async (url: string) => {
+        const { data } = await axios.get(url);
+        return data.products;
+    };
+
+    const fetchProductsByCategory = (category: string) =>
+        fetchProductsByUrl(
+            `https://dummyjson.com/products/category/${category}`
+        );
+
+    const fetchProductsByName = (name: string) =>
+        fetchProductsByUrl(`https://dummyjson.com/products/search?q=${name}`);
+
+    const fetchAllProducts = () =>
+        fetchProductsByUrl(`https://dummyjson.com/products/?limit=10`);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -18,34 +44,21 @@ const useProducts = ({ category, search }: UseProductsOptions) => {
             setError(null);
 
             try {
-                let url = "https://dummyjson.com/products";
+                let productsFetch: CardItemI[] = [];
 
                 if (category) {
-                    url = `https://dummyjson.com/products/category/${category}`;
+                    productsFetch = await fetchProductsByCategory(category);
                 } else if (search) {
-                    url = `https://dummyjson.com/products/search?q=${search}`;
-                }
-
-                const { data } = await axios.get(url);
-
-                const mappedProducts: CardItemI[] = data.products.map(
-                    (p: CardItemI) => ({
-                        id: p.id,
-                        title: p.title,
-                        thumbnail: p.thumbnail,
-                        rating: p.rating,
-                        price: p.price,
-                        category: p.category,
-                    })
-                );
-
-                setProducts(mappedProducts);
-            } catch (err: unknown) {
-                if (axios.isAxiosError(err)) {
-                    setError(err.message);
+                    productsFetch = await fetchProductsByName(search);
                 } else {
-                    setError("Erro desconhecido");
+                    productsFetch = await fetchAllProducts();
                 }
+
+                setProductsData(productsFetch);
+            } catch (err) {
+                setError(
+                    axios.isAxiosError(err) ? err.message : "Erro desconhecido"
+                );
             } finally {
                 setLoading(false);
             }
@@ -54,7 +67,7 @@ const useProducts = ({ category, search }: UseProductsOptions) => {
         fetchProducts();
     }, [category, search]);
 
-    return { products, loading, error };
+    return { data, loading, error };
 };
 
 export default useProducts;
