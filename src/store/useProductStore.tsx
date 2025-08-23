@@ -19,7 +19,7 @@ interface StoreState {
     setIdItem: (value: number) => void;
     getIdItem: (value: number) => void;
     setInputValue: (value: string) => void;
-    // decrementCountCartItem: () => void;
+    decrementCountCartItem: (product: Produto, quantidade: number) => void;
     setProductsData: (products: Produto[]) => void;
     removeCarItem: (product: Produto) => void;
     setLoading: (value: boolean) => void;
@@ -110,38 +110,50 @@ export const useProductStore = create<StoreState>((set) => ({
             isModalOpen: !state.isModalOpen,
         })),
 
-    incrementCountCartItem: (product: Produto, quantidade: number = 1) =>
+    incrementCountCartItem: (product: Produto, amount: number = 1) =>
         set((state) => {
             const existingItem = state.totalCartItems?.find(
                 (item) => item.id === product.id
             );
 
             if (existingItem) {
-                // Atualiza a quantidade do produto existente
+                // soma à quantidade existente
                 return {
                     totalCartItems: state.totalCartItems?.map((item) =>
                         item.id === product.id
                             ? {
                                   ...item,
-                                  quantidade: quantidade,
+                                  quantidade: (item.quantidade ?? 0) + amount,
                               }
                             : item
                     ),
                 };
             }
 
-            // Adiciona novo produto com quantidade inicial
+            // se não existir, adiciona com quantidade inicial
             return {
                 totalCartItems: [
                     ...(state.totalCartItems ?? []),
-                    { ...product, quantidade },
+                    { ...product, quantidade: amount },
                 ],
             };
         }),
 
-    // decrementCountCartItem: () =>
-    //     set((state) => ({
-    //         countCartItem: state.countCartItem - 1,
-    //     }
-    // )),
+    decrementCountCartItem: (product: Produto, amount: number = 1) =>
+        set((state) => ({
+            totalCartItems:
+                state.totalCartItems
+                    ?.map((item) =>
+                        item.id === product.id
+                            ? {
+                                  ...item,
+                                  quantidade: Math.max(
+                                      (item.quantidade ?? 1) - amount,
+                                      0
+                                  ),
+                              }
+                            : item
+                    )
+                    .filter((item) => item.quantidade! > 0) ?? [],
+        })),
 }));
