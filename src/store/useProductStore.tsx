@@ -4,20 +4,22 @@ import type Produto from "../interfaces/card-item.interface";
 interface StoreState {
     isDrawerOpen: boolean;
     isModalOpen: boolean;
-    countCartItem: number;
+    countCartItem: Produto | null;
+    totalCartItems: Produto[] | null;
     inputSearch: string;
     idItem: number | null;
     produtos: Produto[];
     toggleDrawer: () => void;
     toggleModal: () => void;
     clearFilters: () => void;
-    incrementCountCartItem: () => void;
+    incrementCountCartItem: (product: Produto) => void;
     clearIdItem: () => void;
     setIdItem: (value: number) => void;
     getIdItem: (value: number) => void;
     setInputValue: (value: string) => void;
-    decrementCountCartItem: () => void;
+    // decrementCountCartItem: () => void;
     setProductsData: (products: Produto[]) => void;
+    removeCarItem: (product: Produto) => void;
 }
 
 export const useProductStore = create<StoreState>((set) => ({
@@ -25,11 +27,18 @@ export const useProductStore = create<StoreState>((set) => ({
     isModalOpen: false,
     idItem: 0,
     inputSearch: "",
-    countCartItem: 0,
+    countCartItem: null,
+    totalCartItems: [],
     page: 1,
     limit: 10,
     produtos: [],
     totalPages: 1,
+    removeCarItem: (product: Produto) =>
+        set((state) => ({
+            totalCartItems: state.totalCartItems?.filter(
+                (item) => item.id !== product.id
+            ),
+        })),
     clearIdItem: () =>
         set({
             idItem: null,
@@ -66,13 +75,14 @@ export const useProductStore = create<StoreState>((set) => ({
             isModalOpen: !state.isModalOpen,
         })),
 
-    incrementCountCartItem: () =>
+    incrementCountCartItem: (product: Produto) =>
         set((state) => ({
-            countCartItem: state.countCartItem + 1,
+            totalCartItems: [...(state.totalCartItems ?? []), product],
         })),
 
-    decrementCountCartItem: () =>
-        set((state) => ({
-            countCartItem: state.countCartItem - 1,
-        })),
+    // decrementCountCartItem: () =>
+    //     set((state) => ({
+    //         countCartItem: state.countCartItem - 1,
+    //     }
+    // )),
 }));
