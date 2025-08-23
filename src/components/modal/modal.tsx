@@ -108,7 +108,7 @@ const Modal = () => {
                             className="w-full bg-black text-white py-2 rounded-lg cursor-pointer"
                             onClick={handleAddItemToCart}
                         >
-                            Finalizar Compra
+                            Adicionar ao carrinho
                         </button>
                     </div>
                 </div>
