@@ -24,7 +24,7 @@ const CardItem = React.memo(
 
         return (
             <>
-                <button type="button" onClick={handleModal}>
+                <button aria-pressed="true" type="button" onClick={handleModal}>
                     <div
                         className={`bg-[#fffffe] w-[196px] h-fit relative text-black p-2 pt-4 ${className}`}
                     >

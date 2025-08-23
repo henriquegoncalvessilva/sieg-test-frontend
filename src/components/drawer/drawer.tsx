@@ -20,10 +20,12 @@ const Drawer = () => {
     return (
         <>
             {openDrawer && (
-                <div
-                    className="fixed inset-0 bg-black opacity-20 z-40"
+                <button
+                    aria-pressed="true"
+                    type="button"
+                    className="fixed inset-0 bg-black opacity-20 z-40 cursor-pointer"
                     onClick={() => toggleDrawer()}
-                ></div>
+                ></button>
             )}
 
             <div
@@ -33,7 +35,14 @@ const Drawer = () => {
             >
                 <div className="flex justify-between items-center p-4 border-b text-black">
                     <h2 className="text-lg font-bold">Seu Carrinho</h2>
-                    <button onClick={() => toggleDrawer()}>✕</button>
+                    <button
+                        aria-pressed="true"
+                        type="button"
+                        className="cursor-pointer"
+                        onClick={() => toggleDrawer()}
+                    >
+                        ✕
+                    </button>
                 </div>
                 <div className="p-4 space-y-4 text-black overflow-auto overflow-x-hidden h-3/5">
                     {totalCartItems &&
@@ -44,15 +53,17 @@ const Drawer = () => {
                                 <p>{item.price}</p>
                                 <p>{item.quantidade}</p>
                                 <button
+                                    aria-pressed="true"
                                     type="button"
-                                    className="bg-gray-400 p-2"
+                                    className="bg-gray-400 p-2 cursor-pointer"
                                     onClick={() => incrementItem(item, 10)}
                                 >
                                     adicionar
                                 </button>
                                 <button
+                                    aria-pressed="true"
                                     type="button"
-                                    className="bg-gray-400 p-2"
+                                    className="bg-gray-400 p-2 cursor-pointer"
                                     onClick={() => handleRemoveItem(item)}
                                 >
                                     Remover
@@ -76,7 +87,11 @@ const Drawer = () => {
                     )}
                 </div>
                 <div className="absolute bottom-0 w-full p-4 border-t">
-                    <button className="w-full bg-black text-white py-2 rounded-lg">
+                    <button
+                        aria-pressed="true"
+                        type="button"
+                        className="w-full bg-black text-white py-2 rounded-lg cursor-pointer"
+                    >
                         Finalizar Compra
                     </button>
                 </div>
