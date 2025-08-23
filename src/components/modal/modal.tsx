@@ -1,4 +1,5 @@
 import { useProductStore } from "../../store/useProductStore";
+import Rating from "../rating/rating";
 
 const Modal = () => {
     const openModal = useProductStore((state) => state.isModalOpen);
@@ -6,15 +7,21 @@ const Modal = () => {
     const produtos = useProductStore((state) => state.produtos);
     const idItem = useProductStore((state) => state.idItem);
     const selectedProduct = produtos.find((p) => p.id === idItem);
+    const totalCartItems = useProductStore((state) => state.totalCartItems);
     const addItemToCart = useProductStore(
         (state) => state.incrementCountCartItem
     );
 
     const handleAddItemToCart = () => {
-        if (selectedProduct) {
+        if (
+            selectedProduct &&
+            !totalCartItems?.find((item) => item.id === selectedProduct?.id)
+        ) {
             console.log(selectedProduct);
-            addItemToCart(selectedProduct);
+            addItemToCart(selectedProduct, 1);
             console.log(useProductStore.getState().totalCartItems);
+        } else {
+            alert("Já tem o item");
         }
         toggleModal();
     };
@@ -62,9 +69,13 @@ const Modal = () => {
                         <small className="font-bold">Categoria</small>
                         <p>{selectedProduct?.category}</p>
                         <small className="font-bold">Preço</small>
-                        <p>{selectedProduct?.price}</p>
+                        <p> $ {selectedProduct?.price}</p>
                         <small className="font-bold">Avaliações</small>
-                        <p>{selectedProduct?.rating}</p>
+                        <div className="flex">
+                            <Rating
+                                rating={selectedProduct?.rating.toFixed(0)}
+                            />
+                        </div>
                     </div>
                     <div className="w-full p-4 border-t">
                         <button
