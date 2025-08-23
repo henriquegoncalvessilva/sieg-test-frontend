@@ -8,7 +8,9 @@ import useProducts from "../../hooks/useProducts";
 
 const Header = () => {
     const drawer = useProductStore((state) => state.toggleDrawer);
-    const countCartItem = useProductStore((state) => state.countCartItem);
+    const countCartItem = useProductStore(
+        (state) => state.totalCartItems?.length
+    );
     const input = useRef(null);
     const valueSearch = useProductStore((state) => state.inputSearch);
     const setInputValue = useProductStore((state) => state.setInputValue);
