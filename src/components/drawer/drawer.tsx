@@ -7,6 +7,7 @@ const Drawer = () => {
     const toggleDrawer = useProductStore((state) => state.toggleDrawer);
     const totalCartItems = useProductStore((state) => state.totalCartItems);
     const removeItem = useProductStore((state) => state.removeCarItem);
+    const incrementItem = useProductStore((state) => state.incrementItem);
 
     const handleRemoveItem = (item: Produto) => {
         removeItem(item);
@@ -34,12 +35,21 @@ const Drawer = () => {
                     <h2 className="text-lg font-bold">Seu Carrinho</h2>
                     <button onClick={() => toggleDrawer()}>✕</button>
                 </div>
-                <div className="p-4 space-y-4 text-black">
+                <div className="p-4 space-y-4 text-black overflow-auto overflow-x-hidden h-3/5">
                     {totalCartItems &&
                         totalCartItems.length > 0 &&
                         totalCartItems.map((item) => (
                             <div key={item.id}>
                                 <p>{item.title}</p>
+                                <p>{item.price}</p>
+                                <p>{item.quantidade}</p>
+                                <button
+                                    type="button"
+                                    className="bg-gray-400 p-2"
+                                    onClick={() => incrementItem(item, 10)}
+                                >
+                                    adicionar
+                                </button>
                                 <button
                                     type="button"
                                     className="bg-gray-400 p-2"
@@ -49,6 +59,21 @@ const Drawer = () => {
                                 </button>
                             </div>
                         ))}
+                </div>
+                <div className="p-4 border-t">
+                    <p>Subtotal</p>
+                    {totalCartItems && totalCartItems.length > 0 && (
+                        <p>
+                            ${" "}
+                            {totalCartItems
+                                .reduce(
+                                    (acc, item) =>
+                                        acc + item.price * item.quantidade,
+                                    0
+                                )
+                                .toFixed(2)}
+                        </p>
+                    )}
                 </div>
                 <div className="absolute bottom-0 w-full p-4 border-t">
                     <button className="w-full bg-black text-white py-2 rounded-lg">
