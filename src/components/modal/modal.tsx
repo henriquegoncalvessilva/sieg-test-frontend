@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useProductStore } from "../../store/useProductStore";
 import Rating from "../rating/rating";
 
@@ -11,6 +12,22 @@ const Modal = () => {
     const addItemToCart = useProductStore(
         (state) => state.incrementCountCartItem
     );
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                toggleModal();
+            }
+        };
+
+        if (openModal) {
+            window.addEventListener("keydown", handleKeyDown);
+        }
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [openModal, toggleModal]);
 
     const handleAddItemToCart = () => {
         if (
@@ -55,7 +72,14 @@ const Modal = () => {
                         </small>
                     </div>
 
-                    <button onClick={() => toggleModal()}>✕</button>
+                    <button
+                        type="button"
+                        className="cursor-pointer"
+                        aria-pressed="true"
+                        onClick={() => toggleModal()}
+                    >
+                        ✕
+                    </button>
                 </div>
                 <div className="flex flex-col gap-4">
                     <div className="flex flex-col justify-center text-left h-fit md:gap-2">
@@ -79,7 +103,9 @@ const Modal = () => {
                     </div>
                     <div className="w-full p-4 border-t">
                         <button
-                            className="w-full bg-black text-white py-2 rounded-lg"
+                            aria-pressed="true"
+                            type="button"
+                            className="w-full bg-black text-white py-2 rounded-lg cursor-pointer"
                             onClick={handleAddItemToCart}
                         >
                             Finalizar Compra
