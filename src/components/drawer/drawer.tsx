@@ -1,12 +1,20 @@
+import { useEffect } from "react";
+import type Produto from "../../interfaces/card-item.interface";
 import { useProductStore } from "../../store/useProductStore";
 
 const Drawer = () => {
     const openDrawer = useProductStore((state) => state.isDrawerOpen);
     const toggleDrawer = useProductStore((state) => state.toggleDrawer);
-    const countItems = useProductStore((state) => state.countCartItem);
-    const decrementItem = useProductStore(
-        (state) => state.decrementCountCartItem
-    );
+    const totalCartItems = useProductStore((state) => state.totalCartItems);
+    const removeItem = useProductStore((state) => state.removeCarItem);
+
+    const handleRemoveItem = (item: Produto) => {
+        removeItem(item);
+    };
+
+    useEffect(() => {
+        console.log(totalCartItems);
+    }, [totalCartItems]);
 
     return (
         <>
@@ -27,18 +35,20 @@ const Drawer = () => {
                     <button onClick={() => toggleDrawer()}>✕</button>
                 </div>
                 <div className="p-4 space-y-4 text-black">
-                    {Array.from({ length: countItems }).map((_, i) => (
-                        <>
-                            <p key={i}>{i + 1}</p>
-                            <button
-                                onClick={() => {
-                                    decrementItem();
-                                }}
-                            >
-                                Apagar
-                            </button>
-                        </>
-                    ))}
+                    {totalCartItems &&
+                        totalCartItems.length > 0 &&
+                        totalCartItems.map((item) => (
+                            <div key={item.id}>
+                                <p>{item.title}</p>
+                                <button
+                                    type="button"
+                                    className="bg-gray-400 p-2"
+                                    onClick={() => handleRemoveItem(item)}
+                                >
+                                    Remover
+                                </button>
+                            </div>
+                        ))}
                 </div>
                 <div className="absolute bottom-0 w-full p-4 border-t">
                     <button className="w-full bg-black text-white py-2 rounded-lg">
