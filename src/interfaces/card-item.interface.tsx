@@ -1,4 +1,4 @@
-export default interface Produto {
+export interface Produto {
     id: number;
     thumbnail: string;
     title: string;
@@ -7,4 +7,5 @@ export default interface Produto {
     category: string;
     brand: string;
     description: string;
+    quantidade: number;
 }
