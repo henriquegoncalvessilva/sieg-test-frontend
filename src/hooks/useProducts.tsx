@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import type CardItemI from "../interfaces/card-item.interface";
 import { useProductStore } from "../store/useProductStore";
+import type { Produto } from "../interfaces/card-item.interface";
 
 interface UseProductsOptions {
     category?: string;
@@ -9,11 +9,11 @@ interface UseProductsOptions {
 }
 
 const useProducts = ({ category, search }: UseProductsOptions) => {
-    const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const setProductsData = useProductStore((state) => state.setProductsData);
+    const setLoading = useProductStore((state) => state.setLoading);
     const data = useProductStore((state) => state.produtos);
-    const [debouncedSearch, setDebouncedSearch] = useState(search);
+    const [_, setDebouncedSearch] = useState(search);
 
     useEffect(() => {
         const handler = setTimeout(() => {
@@ -36,15 +36,14 @@ const useProducts = ({ category, search }: UseProductsOptions) => {
         fetchProductsByUrl(`https://dummyjson.com/products/search?q=${name}`);
 
     const fetchAllProducts = () =>
-        fetchProductsByUrl(`https://dummyjson.com/products/?limit=10`);
+        fetchProductsByUrl(`https://dummyjson.com/products/?limit=0`);
 
     useEffect(() => {
         const fetchProducts = async () => {
             setLoading(true);
             setError(null);
-
             try {
-                let productsFetch: CardItemI[] = [];
+                let productsFetch: Produto[] = [];
 
                 if (category) {
                     productsFetch = await fetchProductsByCategory(category);
@@ -67,7 +66,7 @@ const useProducts = ({ category, search }: UseProductsOptions) => {
         fetchProducts();
     }, [category, search]);
 
-    return { data, loading, error };
+    return { data, error };
 };
 
 export default useProducts;
