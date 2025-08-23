@@ -5,8 +5,19 @@ const Modal = () => {
     const toggleModal = useProductStore((state) => state.toggleModal);
     const produtos = useProductStore((state) => state.produtos);
     const idItem = useProductStore((state) => state.idItem);
-    const produtoSelecionado = produtos.find((p) => p.id === idItem);
+    const selectedProduct = produtos.find((p) => p.id === idItem);
+    const addItemToCart = useProductStore(
+        (state) => state.incrementCountCartItem
+    );
 
+    const handleAddItemToCart = () => {
+        if (selectedProduct) {
+            console.log(selectedProduct);
+            addItemToCart(selectedProduct);
+            console.log(useProductStore.getState().totalCartItems);
+        }
+        toggleModal();
+    };
     return (
         <>
             {openModal && (
@@ -17,29 +28,52 @@ const Modal = () => {
             )}
 
             <div
-                className={`fixed top-1/2 left-1/2 ${
-                    openModal && "w-[320px] h-[620px]"
+                className={`${
+                    openModal ? "block" : "hidden"
+                } fixed top-1/2 left-1/2 ${
+                    openModal && "w-[320px] h-fit md:w-fit md:h-fit"
                 } bg-white shadow-lg z-50 rounded-xl p-4 transform transition-all duration-300 text-black ${
                     openModal
                         ? "opacity-100 scale-100 -translate-x-1/2 -translate-y-1/2"
                         : "opacity-0 scale-75 -translate-x-1/2 -translate-y-2"
                 }`}
             >
-                <div className="flex justify-between items-center p-4 border-b text-black">
-                    <h2 className="text-lg font-bold">Seu Carrinho</h2>
+                <div className="flex justify-between items-center border-b text-black">
+                    <div>
+                        <h2 className="text-lg font-bold">
+                            {selectedProduct?.title}
+                        </h2>
+                        <small className="font-bold">
+                            {selectedProduct?.brand}
+                        </small>
+                    </div>
+
                     <button onClick={() => toggleModal()}>✕</button>
                 </div>
-                {produtoSelecionado ? (
-                    <h3 className="text-xl font-semibold">
-                        {produtoSelecionado.title}
-                    </h3>
-                ) : (
-                    <p>Carregando...</p>
-                )}
-                <div className="absolute bottom-0 w-full p-4 border-t">
-                    <button className="w-full bg-black text-white py-2 rounded-lg">
-                        Finalizar Compra
-                    </button>
+                <div className="flex flex-col gap-4">
+                    <div className="flex flex-col justify-center text-left h-fit md:gap-2">
+                        <img
+                            src={selectedProduct?.thumbnail}
+                            alt={selectedProduct?.title}
+                            className="w-48 h-48 rounded-lg self-center"
+                        />
+                        <small className="font-bold">Descrição</small>
+                        <p>{selectedProduct?.description}</p>
+                        <small className="font-bold">Categoria</small>
+                        <p>{selectedProduct?.category}</p>
+                        <small className="font-bold">Preço</small>
+                        <p>{selectedProduct?.price}</p>
+                        <small className="font-bold">Avaliações</small>
+                        <p>{selectedProduct?.rating}</p>
+                    </div>
+                    <div className="w-full p-4 border-t">
+                        <button
+                            className="w-full bg-black text-white py-2 rounded-lg"
+                            onClick={handleAddItemToCart}
+                        >
+                            Finalizar Compra
+                        </button>
+                    </div>
                 </div>
             </div>
         </>
