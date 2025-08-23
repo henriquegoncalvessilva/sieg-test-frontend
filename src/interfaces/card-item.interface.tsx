@@ -5,4 +5,6 @@ export default interface Produto {
     rating: number;
     price: number;
     category: string;
+    brand: string;
+    description: string;
 }
