@@ -1,6 +1,7 @@
 import HeartIcon from "../../assets/icons/heart.svg";
 import { useProductStore } from "../../store/useProductStore";
 import React from "react";
+import Rating from "../rating/rating";
 
 type CardItemProps = {
     id: number;
@@ -25,26 +26,37 @@ const CardItem = React.memo(
             <>
                 <button type="button" onClick={handleModal}>
                     <div
-                        className={`bg-[#fffffe] w-[196px] h-[308px] relative text-black p-2 pt-4 ${className}`}
+                        className={`bg-[#fffffe] w-[196px] h-fit relative text-black p-2 pt-4 ${className}`}
                     >
                         <img
                             src={HeartIcon}
                             width={20}
                             height={20}
                             loading="lazy"
-                            className="absolute  right-3 text-black"
+                            className="absolute right-3 text-black"
+                            alt="Icone de favorito"
                         />
                         <img
                             loading="lazy"
                             src={image}
                             width={180}
                             height={180}
-                            alt=""
+                            alt="Imagem do Item"
                         />
-                        <div className="flex flex-col gap-0 justify-between p-4">
-                            <strong>{nome}</strong>
-                            <div className="flex"> {avaliacoes}</div>
-                            <strong>{preco}</strong>
+                        <div className="flex flex-col gap-4 items-start p-2 text-left w-fit ">
+                            <strong className="truncate overflow-hidden w-[160px]">
+                                {nome}
+                            </strong>
+                            <div className="flex gap-2 items-center justify-center">
+                                <small className="font-bold">Avaliação: </small>
+                                <div className="flex ">
+                                    <Rating rating={avaliacoes} />
+                                </div>
+                            </div>
+                            <div className="flex gap-2 items-center">
+                                <small className="font-bold">Preço: </small>
+                                <strong>$ {preco}</strong>
+                            </div>
                         </div>
                     </div>
                 </button>
