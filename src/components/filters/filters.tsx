@@ -9,8 +9,8 @@ type FiltersProps = {
 const Filters = ({ className }: FiltersProps) => {
     const [selectedCategory, setSelectedCategory] = useState<string>("");
     const [selectedPriceRange, setSelectedPriceRange] = useState<
-        string | undefined
-    >("");
+        number | undefined
+    >(500);
     const produtos = useProductStore((state) => state.produtos);
     const setProdutos = useProductStore((state) => state.setProductsData);
     const produtosOriginais = useRef<Produto[]>([]);
@@ -73,6 +73,7 @@ const Filters = ({ className }: FiltersProps) => {
                     Filtros
                 </h2>
                 <button
+                    aria-pressed="true"
                     disabled={inputSearch == "" && selectedCategory == ""}
                     type="button"
                     className="cursor-pointer disabled:text-gray-400 focus:border p-2"
@@ -105,25 +106,24 @@ const Filters = ({ className }: FiltersProps) => {
                         htmlFor="price-range"
                         className="p-2 rounded w-full  text-[#252427] text-xl "
                     >
-                        Faixa de preço: R${" "}
+                        Faixa de preço:
                         {Number(selectedPriceRange).toFixed()}
                     </label>
                     <div className="flex w-full text-black items-center">
-                        <p className="w-full text-center font-bold">R$ 0</p>
+                        <p className="w-full text-center font-bold">$ 0</p>
                         <input
                             type="range"
                             id="price-range"
-                            min="1"
-                            max="10000"
+                            min="500"
+                            max="8000"
+                            step="500"
                             className="w-48"
                             defaultValue={selectedPriceRange}
                             onChange={(e) =>
-                                setSelectedPriceRange(e.target.value)
+                                setSelectedPriceRange(Number(e.target.value))
                             }
                         />
-                        <p className="w-full text-center font-bold ">
-                            R$ 10.000
-                        </p>
+                        <p className="w-full text-center font-bold ">$ 8.000</p>
                     </div>
                 </div>
             </div>
