@@ -58,7 +58,7 @@ const CardItem = React.memo(
                         onClick={handleFavorite}
                         aria-pressed="true"
                         type="button"
-                        className="absolute right-3 text-black z-50 cursor-pointer"
+                        className="absolute right-3 text-black  cursor-pointer"
                     >
                         <img
                             src={!isFavorite ? HeartIcon : HeartFavoritedIcon}
