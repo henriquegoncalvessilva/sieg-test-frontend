@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useProductStore } from "../../store/useProductStore";
 import type { Produto } from "../../interfaces/card-item.interface";
 import trashIcon from "../../assets/icons/trash.svg";
+import Button from "../button/button";
 
 const Drawer = () => {
     const openDrawer = useProductStore((state) => state.isDrawerOpen);
@@ -24,12 +25,10 @@ const Drawer = () => {
     return (
         <>
             {openDrawer && (
-                <button
-                    aria-pressed="true"
-                    type="button"
+                <Button
                     className="fixed inset-0 bg-black opacity-20 z-40 cursor-pointer"
                     onClick={() => toggleDrawer()}
-                ></button>
+                />
             )}
 
             <div
@@ -39,16 +38,14 @@ const Drawer = () => {
             >
                 <div className="flex justify-between items-center p-4 border-b text-black">
                     <h2 className="text-lg font-bold">
-                        Seu Carrinho ( Total - {totalCartItems?.length} )
+                        Cart ( Total - {totalCartItems?.length} )
                     </h2>
-                    <button
-                        aria-pressed="true"
-                        type="button"
-                        className="cursor-pointer"
+                    <Button
+                        className="cursor-pointer justify-center px-4 py-2  rounded-lg w-8 h-8 items-center flex flex-col"
                         onClick={() => toggleDrawer()}
                     >
                         ✕
-                    </button>
+                    </Button>
                 </div>
                 <div
                     className={`p-4 space-y-4 text-black overflow-auto overflow-x-hidden h-3/5 flex gap-8 flex-col ${
@@ -72,42 +69,36 @@ const Drawer = () => {
                                         height={100}
                                     />
                                     <div className="flex items-center gap-2 ">
-                                        <small>Produto:</small>
+                                        <small>Product:</small>
                                         <p>{item.title}</p>
                                     </div>
                                     <div className="flex items-center gap-0 ">
-                                        <small>Preço: $</small>
+                                        <small>Price: $</small>
                                         <p>{item.price}</p>
                                     </div>
 
                                     <div className="flex items-center gap-2 ">
-                                        <small>Quantidade: </small>
+                                        <small>Count: </small>
 
                                         <div className="flex items-center gap-2">
-                                            <button
-                                                aria-pressed="true"
-                                                type="button"
+                                            <Button
                                                 className="w-7 h-7  bg-black text-white rounded-lg cursor-pointer"
                                                 onClick={() =>
                                                     incrementItem(item, 1)
                                                 }
                                             >
                                                 +
-                                            </button>
+                                            </Button>
                                             <p>{item.quantidade}</p>
-                                            <button
-                                                aria-pressed="true"
-                                                type="button"
+                                            <Button
                                                 className="w-7 h-7  bg-black text-white rounded-lg cursor-pointer"
                                                 onClick={() =>
                                                     descrementItem(item, 1)
                                                 }
                                             >
                                                 -
-                                            </button>
-                                            <button
-                                                aria-pressed="true"
-                                                type="button"
+                                            </Button>
+                                            <Button
                                                 className="w-7 h-7 bg-black text-white rounded-lg cursor-pointer flex items-center justify-center"
                                                 onClick={() =>
                                                     handleRemoveItem(item)
@@ -119,7 +110,7 @@ const Drawer = () => {
                                                     src={trashIcon}
                                                     alt="Icone de lixeira"
                                                 />
-                                            </button>
+                                            </Button>
                                         </div>
                                     </div>
                                 </div>
@@ -127,7 +118,7 @@ const Drawer = () => {
                         ))}
                     {totalCartItems && totalCartItems.length === 0 && (
                         <h2 className="items-center  text-center text-4xl font-bold ">
-                            Carrinho Vazio
+                            Empty
                         </h2>
                     )}
                 </div>
@@ -148,14 +139,12 @@ const Drawer = () => {
                     )}
                 </div>
                 <div className="absolute bottom-0 w-full p-4 border-t">
-                    <button
+                    <Button
                         disabled={totalCartItems?.length === 0}
-                        aria-pressed="true"
-                        type="button"
                         className="w-full bg-black text-white py-2 rounded-lg cursor-pointer disabled:cursor-default disabled:opacity-50"
                     >
-                        Finalizar Compra
-                    </button>
+                        Checkout
+                    </Button>
                 </div>
             </div>
         </>

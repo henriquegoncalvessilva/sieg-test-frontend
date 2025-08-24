@@ -15,6 +15,7 @@ const Header = () => {
     const valueSearch = useProductStore((state) => state.inputSearch);
     const setInputValue = useProductStore((state) => state.setInputValue);
     const debouncedSearch = useDebounce(valueSearch.trim(), 300);
+    const products = useProductStore((state) => state.produtos);
 
     useProducts({ search: debouncedSearch });
     const { inputSearch } = useProductStore();
@@ -35,14 +36,20 @@ const Header = () => {
         <>
             <header className="py-5 w-full flex flex-col justify-center gap-6">
                 <h1 className="font-bold text-left text-[#252427] text-xl w-full hidden md:block">
-                    Pesquisar produto
+                    Search product
                 </h1>
+
                 <div className="flex flex-col md:flex-row-reverse items-center justify-between w-full gap-4">
                     <div className="flex md:flex-row-reverse justify-between w-full md:w-fit">
                         <div className="flex justify-between w-full md:w-fit">
-                            <h1 className="font-bold text-left text-[#252427] text-xl w-full md:hidden">
-                                Pesquisar Produto
-                            </h1>
+                            <div className="flex flex-col gap-2">
+                                <h1 className="font-bold text-left text-[#252427] text-xl w-full md:hidden">
+                                    Search product
+                                </h1>
+                                <small className="font-medium md:hidden">
+                                    Total products: {products.length}
+                                </small>
+                            </div>
                             <div
                                 className="relative cursor-pointer"
                                 onClick={() => drawer()}
@@ -63,7 +70,7 @@ const Header = () => {
                         <img src={searchIcon} alt="" width={26} />
                         <input
                             type="text"
-                            placeholder="Pesquisar produto"
+                            placeholder="Iphone, Chair, Samsung, etc"
                             className="w-full py-2 px-3 "
                             ref={input}
                             onChange={(e) => setInputValue(e.target.value)}

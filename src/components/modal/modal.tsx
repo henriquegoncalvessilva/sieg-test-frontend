@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useProductStore } from "../../store/useProductStore";
 import Rating from "../rating/rating";
+import Button from "../button/button";
 
 const Modal = () => {
     const openModal = useProductStore((state) => state.isModalOpen);
@@ -45,10 +46,10 @@ const Modal = () => {
     return (
         <>
             {openModal && (
-                <div
-                    className="fixed inset-0 bg-black opacity-20 z-40"
+                <Button
+                    className="fixed inset-0 bg-black opacity-20  z-40"
                     onClick={() => toggleModal()}
-                ></div>
+                />
             )}
 
             <div
@@ -62,9 +63,9 @@ const Modal = () => {
                         : "opacity-0 scale-75 -translate-x-1/2 -translate-y-2"
                 }`}
             >
-                <div className="flex justify-between items-center border-b text-black">
-                    <div>
-                        <h2 className="text-lg font-bold">
+                <div className="flex justify-between items-center border-b text-black pb-2">
+                    <div className="flex flex-col gap-2">
+                        <h2 className="text-md font-bold">
                             {selectedProduct?.title}
                         </h2>
                         <small className="font-bold">
@@ -72,14 +73,12 @@ const Modal = () => {
                         </small>
                     </div>
 
-                    <button
-                        type="button"
-                        className="cursor-pointer"
-                        aria-pressed="true"
+                    <Button
+                        className="cursor-pointer justify-center px-4 py-2  rounded-lg w-8 h-8 items-center flex flex-col "
                         onClick={() => toggleModal()}
                     >
                         ✕
-                    </button>
+                    </Button>
                 </div>
                 <div className="flex flex-col gap-4">
                     <div className="flex flex-col justify-center text-left h-fit md:gap-2">
@@ -88,28 +87,26 @@ const Modal = () => {
                             alt={selectedProduct?.title}
                             className="w-48 h-48 rounded-lg self-center"
                         />
-                        <small className="font-bold">Descrição</small>
+                        <small className="font-bold">Description</small>
                         <p>{selectedProduct?.description}</p>
-                        <small className="font-bold">Categoria</small>
+                        <small className="font-bold">Category</small>
                         <p>{selectedProduct?.category}</p>
-                        <small className="font-bold">Preço</small>
+                        <small className="font-bold">Price</small>
                         <p> $ {selectedProduct?.price}</p>
-                        <small className="font-bold">Avaliações</small>
+                        <small className="font-bold">Rating</small>
                         <div className="flex">
                             <Rating
                                 rating={selectedProduct?.rating.toFixed(0)}
                             />
                         </div>
                     </div>
-                    <div className="w-full p-4 border-t">
-                        <button
-                            aria-pressed="true"
-                            type="button"
-                            className="w-full bg-black text-white py-2 rounded-lg cursor-pointer"
+                    <div className="w-full p-4 border-t justify-center items-center flex">
+                        <Button
                             onClick={handleAddItemToCart}
+                            className="w-full md:w-3xs bg-black text-white py-2 rounded-lg cursor-pointer"
                         >
-                            Adicionar ao carrinho
-                        </button>
+                            Add to Cart
+                        </Button>
                     </div>
                 </div>
             </div>

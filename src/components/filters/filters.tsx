@@ -88,10 +88,13 @@ const Filters = ({ className }: FiltersProps) => {
         <section
             className={`flex flex-col justify-between items-center gap-4 ${className}`}
         >
+            <small className="font-medium hidden md:block">
+                Total Products: {products.length}
+            </small>
             <div className="flex gap-4 justify-between items-center w-full">
                 <div className="flex gap-2 items-center justify-center">
                     <h2 className="font-bold text-left text-[#252427] text-xl">
-                        Filtros
+                        Filters
                     </h2>
                     <p className="px-3 bg-black text-white rounded-2xl">
                         {badgeFilters.length}
@@ -105,17 +108,17 @@ const Filters = ({ className }: FiltersProps) => {
                     className="cursor-pointer disabled:text-gray-400 focus:border p-2"
                     onClick={handleClearFilters}
                 >
-                    Limpar Filtros
+                    Clear Filters
                 </button>
             </div>
-            <div className="flex flex-col gap-4 w-full justify-between items-center">
+            <div className="flex flex-col gap-4 w-full justify-between items-start">
                 <select
                     className="p-2 border rounded w-full  text-[#252427] text-xl capitalize"
                     onChange={(e) => setSelectedCategory(e.target.value)}
                     value={selectedCategory}
                 >
                     <option className=" text-[#252427] text-xl" value="">
-                        Todos
+                        All Categories
                     </option>
                     {categories.map((category) => (
                         <option
@@ -132,11 +135,12 @@ const Filters = ({ className }: FiltersProps) => {
                         htmlFor="price-range"
                         className="p-2 px-0 rounded w-full  text-[#252427] text-xl "
                     >
-                        Faixa de preço:
+                        Price Range:
                         {selectedPriceRange
                             ? Number(selectedPriceRange).toFixed()
                             : 0}
                     </label>
+
                     <div className="flex w-full text-black items-center">
                         <p className="w-full text-center font-bold">$ 0</p>
                         <input

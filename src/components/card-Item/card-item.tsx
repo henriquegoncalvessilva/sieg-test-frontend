@@ -86,13 +86,13 @@ const CardItem = React.memo(
                                 {nome}
                             </strong>
                             <div className="flex gap-2 items-center justify-center">
-                                <small className="font-bold">Avaliação: </small>
+                                <small className="font-bold">Rating: </small>
                                 <div className="flex ">
                                     <Rating rating={avaliacoes} />
                                 </div>
                             </div>
                             <div className="flex gap-2 items-center">
-                                <small className="font-bold">Preço: </small>
+                                <small className="font-bold">Price: </small>
                                 <strong>$ {preco}</strong>
                             </div>
                         </div>
