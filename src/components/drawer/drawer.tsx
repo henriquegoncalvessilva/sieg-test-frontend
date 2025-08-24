@@ -118,7 +118,7 @@ const Drawer = () => {
                         ))}
                     {totalCartItems && totalCartItems.length === 0 && (
                         <h2 className="items-center  text-center text-4xl font-bold ">
-                            Empty
+                            Cart Empty
                         </h2>
                     )}
                 </div>
