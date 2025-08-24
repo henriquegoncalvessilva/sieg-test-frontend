@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useProductStore } from "../../store/useProductStore";
 import type { Produto } from "../../interfaces/card-item.interface";
+import trashIcon from "../../assets/icons/trash.svg";
 
 const Drawer = () => {
     const openDrawer = useProductStore((state) => state.isDrawerOpen);
@@ -107,12 +108,17 @@ const Drawer = () => {
                                             <button
                                                 aria-pressed="true"
                                                 type="button"
-                                                className="w-7 h-7  bg-black text-white rounded-lg cursor-pointer"
+                                                className="w-7 h-7 bg-black text-white rounded-lg cursor-pointer flex items-center justify-center"
                                                 onClick={() =>
                                                     handleRemoveItem(item)
                                                 }
                                             >
-                                                x
+                                                <img
+                                                    width={20}
+                                                    height={20}
+                                                    src={trashIcon}
+                                                    alt="Icone de lixeira"
+                                                />
                                             </button>
                                         </div>
                                     </div>
@@ -126,17 +132,19 @@ const Drawer = () => {
                     )}
                 </div>
                 <div className="p-4 border-t h-fit flex items-center justify-start">
-                    <p>Subtotal: $ </p>
                     {totalCartItems && totalCartItems.length > 0 && (
-                        <p>
-                            {totalCartItems
-                                .reduce(
-                                    (acc, item) =>
-                                        acc + item.price * item.quantidade,
-                                    0
-                                )
-                                .toFixed(2)}
-                        </p>
+                        <>
+                            <p>Subtotal: $ </p>
+                            <p>
+                                {totalCartItems
+                                    .reduce(
+                                        (acc, item) =>
+                                            acc + item.price * item.quantidade,
+                                        0
+                                    )
+                                    .toFixed(2)}
+                            </p>
+                        </>
                     )}
                 </div>
                 <div className="absolute bottom-0 w-full p-4 border-t">
