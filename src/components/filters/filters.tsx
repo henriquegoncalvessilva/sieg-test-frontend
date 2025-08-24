@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useProductStore } from "../../store/useProductStore";
 import type { Produto } from "../../interfaces/card-item.interface";
 import { useDebounce } from "../../hooks/useDebounce";
+import Button from "../button/button";
 
 type FiltersProps = {
     className?: string;
@@ -101,15 +102,13 @@ const Filters = ({ className }: FiltersProps) => {
                     </p>
                 </div>
 
-                <button
-                    aria-pressed="true"
+                <Button
                     disabled={badgeFilters.length === 0}
-                    type="button"
                     className="cursor-pointer disabled:text-gray-400 focus:border p-2"
                     onClick={handleClearFilters}
                 >
                     Clear Filters
-                </button>
+                </Button>
             </div>
             <div className="flex flex-col gap-4 w-full justify-between items-start">
                 <select
