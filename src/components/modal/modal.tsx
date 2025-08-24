@@ -35,9 +35,7 @@ const Modal = () => {
             selectedProduct &&
             !totalCartItems?.find((item) => item.id === selectedProduct?.id)
         ) {
-            console.log(selectedProduct);
             addItemToCart(selectedProduct, 1);
-            console.log(useProductStore.getState().totalCartItems);
         } else {
             alert("Já tem o item");
         }

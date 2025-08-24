@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useProductStore } from "../../store/useProductStore";
 import type { Produto } from "../../interfaces/card-item.interface";
 import trashIcon from "../../assets/icons/trash.svg";
@@ -17,10 +16,6 @@ const Drawer = () => {
     const handleRemoveItem = (item: Produto) => {
         removeItem(item);
     };
-
-    useEffect(() => {
-        console.log(totalCartItems);
-    }, [totalCartItems]);
 
     return (
         <>

@@ -10,19 +10,19 @@ interface StoreState {
     inputSearch: string;
     idItem: number | null;
     produtos: Produto[];
+    getIdItem: (value: number) => void;
+    setIdItem: (value: number) => void;
+    setInputValue: (value: string) => void;
+    setProductsData: (products: Produto[]) => void;
+    setLoading: (value: boolean) => void;
+    clearIdItem: () => void;
     toggleDrawer: () => void;
     toggleModal: () => void;
     clearFilters: () => void;
     incrementCountCartItem: (product: Produto, quantidade: number) => void;
     incrementItem: (product: Produto, quantidade: number) => void;
-    clearIdItem: () => void;
-    setIdItem: (value: number) => void;
-    getIdItem: (value: number) => void;
-    setInputValue: (value: string) => void;
     decrementCountCartItem: (product: Produto, quantidade: number) => void;
-    setProductsData: (products: Produto[]) => void;
     removeCarItem: (product: Produto) => void;
-    setLoading: (value: boolean) => void;
 }
 
 export const useProductStore = create<StoreState>((set) => ({
@@ -33,10 +33,7 @@ export const useProductStore = create<StoreState>((set) => ({
     inputSearch: "",
     countCartItem: null,
     totalCartItems: [],
-    page: 1,
-    limit: 10,
     produtos: [],
-    totalPages: 1,
     incrementItem: (product: Produto) =>
         set((state) => {
             const exists = state.totalCartItems?.find(

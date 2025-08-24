@@ -33,7 +33,6 @@ const Filters = ({ className }: FiltersProps) => {
         if (originalProductsData.current.length === 0) {
             originalProductsData.current = products;
         }
-        console.log(badgeFilters.length);
     }, [products]);
 
     const filteredProducts = useMemo(() => {
