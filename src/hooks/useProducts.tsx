@@ -4,17 +4,15 @@ import { useProductStore } from "../store/useProductStore";
 import type { Produto } from "../interfaces/card-item.interface";
 
 interface UseProductsOptions {
-    category?: string;
     search?: string;
 }
 
-const useProducts = ({ category, search }: UseProductsOptions) => {
+const useProducts = ({ search }: UseProductsOptions) => {
     const [error, setError] = useState<string | null>(null);
     const setProductsData = useProductStore((state) => state.setProductsData);
     const setLoading = useProductStore((state) => state.setLoading);
     const data = useProductStore((state) => state.produtos);
     const [_, setDebouncedSearch] = useState(search);
-    const valueSearch = useProductStore((state) => state.inputSearch);
 
     useEffect(() => {
         const handler = setTimeout(() => {
