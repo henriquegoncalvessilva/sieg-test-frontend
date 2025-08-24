@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useProductStore } from "../store/useProductStore";
 import type { Produto } from "../interfaces/card-item.interface";
+import { fetchAllProducts, fetchProductsByName } from "../services/api";
 
 interface UseProductsOptions {
     search?: string;
@@ -20,17 +21,6 @@ const useProducts = ({ search }: UseProductsOptions) => {
         }, 500);
         return () => clearTimeout(handler);
     }, [search]);
-
-    const fetchProductsByUrl = async (url: string) => {
-        const { data } = await axios.get(url);
-        return data.products;
-    };
-
-    const fetchProductsByName = (name: string) =>
-        fetchProductsByUrl(`https://dummyjson.com/products/search?q=${name}`);
-
-    const fetchAllProducts = () =>
-        fetchProductsByUrl(`https://dummyjson.com/products/?limit=0`);
 
     useEffect(() => {
         const fetchProducts = async () => {
