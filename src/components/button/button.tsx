@@ -13,7 +13,7 @@ const Button = ({ onClick, disabled, children, className }: ButtonProps) => {
             aria-pressed="true"
             type="button"
             disabled={disabled}
-            className={`bg-black text-white  cursor-pointer ${className}`}
+            className={`cursor-pointer ${className}`}
             onClick={onClick}
         >
             {children}
