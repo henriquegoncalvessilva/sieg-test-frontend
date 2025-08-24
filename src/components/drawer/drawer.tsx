@@ -33,7 +33,7 @@ const Drawer = () => {
             )}
 
             <div
-                className={`fixed right-0 top-0 h-full w-80 bg-white shadow-lg z-50 transform transition-transform duration-300 ${
+                className={`fixed right-0 top-0 h-full w-80  bg-white shadow-lg z-50 transform transition-transform duration-300 ${
                     openDrawer ? "translate-x-0" : "translate-x-full"
                 }`}
             >
