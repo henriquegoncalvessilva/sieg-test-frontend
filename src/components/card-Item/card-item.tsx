@@ -79,6 +79,7 @@ const CardItem = React.memo(
                             src={image}
                             width={180}
                             height={180}
+                            fetchPriority="high"
                             alt="Imagem do Item"
                         />
                         <div className="flex flex-col gap-4 items-start p-2 text-left w-fit ">
