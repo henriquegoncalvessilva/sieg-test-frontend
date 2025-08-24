@@ -19,7 +19,7 @@ const Filters = ({ className }: FiltersProps) => {
     const [badgeFilters, setBadgeFilters] = useState<
         (string | number | undefined)[]
     >([]);
-    const { clearFilters, inputSearch } = useProductStore();
+    const { clearFilters } = useProductStore();
 
     const handleClearFilters = () => {
         setSelectedCategory("");
@@ -79,7 +79,7 @@ const Filters = ({ className }: FiltersProps) => {
         "womens-bags",
         "womens-jewellery",
         "sunglasses",
-        "automotive",
+        "vehicle",
         "motorcycle",
         "lighting",
     ];
@@ -89,14 +89,18 @@ const Filters = ({ className }: FiltersProps) => {
             className={`flex flex-col justify-between items-center gap-4 ${className}`}
         >
             <div className="flex gap-4 justify-between items-center w-full">
-                <h2 className="font-bold text-left text-[#252427] text-xl">
-                    Filtros
-                </h2>
-                {badgeFilters.length}
+                <div className="flex gap-2 items-center justify-center">
+                    <h2 className="font-bold text-left text-[#252427] text-xl">
+                        Filtros
+                    </h2>
+                    <p className="px-3 bg-black text-white rounded-2xl">
+                        {badgeFilters.length}
+                    </p>
+                </div>
 
                 <button
                     aria-pressed="true"
-                    disabled={inputSearch == "" && selectedCategory == ""}
+                    disabled={badgeFilters.length === 0}
                     type="button"
                     className="cursor-pointer disabled:text-gray-400 focus:border p-2"
                     onClick={handleClearFilters}
@@ -126,12 +130,12 @@ const Filters = ({ className }: FiltersProps) => {
                 <div className="flex  xl:flex-col items-center gap-2 w-full ">
                     <label
                         htmlFor="price-range"
-                        className="p-2 rounded w-full  text-[#252427] text-xl "
+                        className="p-2 px-0 rounded w-full  text-[#252427] text-xl "
                     >
                         Faixa de preço:
                         {selectedPriceRange
                             ? Number(selectedPriceRange).toFixed()
-                            : 500}
+                            : 0}
                     </label>
                     <div className="flex w-full text-black items-center">
                         <p className="w-full text-center font-bold">$ 0</p>
@@ -140,14 +144,16 @@ const Filters = ({ className }: FiltersProps) => {
                             id="price-range"
                             min="1"
                             max="50000"
-                            step="1"
+                            step="10"
                             className="w-48"
                             defaultValue={500}
                             onChange={(e) =>
                                 setSelectedPriceRange(Number(e.target.value))
                             }
                         />
-                        <p className="w-full text-center font-bold ">$ 8.000</p>
+                        <p className="w-full text-center font-bold ">
+                            $ 50.000
+                        </p>
                     </div>
                 </div>
             </div>
