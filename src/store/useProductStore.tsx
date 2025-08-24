@@ -117,7 +117,6 @@ export const useProductStore = create<StoreState>((set) => ({
             );
 
             if (existingItem) {
-                // soma à quantidade existente
                 return {
                     totalCartItems: state.totalCartItems?.map((item) =>
                         item.id === product.id
@@ -130,7 +129,6 @@ export const useProductStore = create<StoreState>((set) => ({
                 };
             }
 
-            // se não existir, adiciona com quantidade inicial
             return {
                 totalCartItems: [
                     ...(state.totalCartItems ?? []),

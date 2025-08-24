@@ -14,6 +14,7 @@ const useProducts = ({ category, search }: UseProductsOptions) => {
     const setLoading = useProductStore((state) => state.setLoading);
     const data = useProductStore((state) => state.produtos);
     const [_, setDebouncedSearch] = useState(search);
+    const valueSearch = useProductStore((state) => state.inputSearch);
 
     useEffect(() => {
         const handler = setTimeout(() => {
@@ -26,11 +27,6 @@ const useProducts = ({ category, search }: UseProductsOptions) => {
         const { data } = await axios.get(url);
         return data.products;
     };
-
-    const fetchProductsByCategory = (category: string) =>
-        fetchProductsByUrl(
-            `https://dummyjson.com/products/category/${category}`
-        );
 
     const fetchProductsByName = (name: string) =>
         fetchProductsByUrl(`https://dummyjson.com/products/search?q=${name}`);
