@@ -86,7 +86,7 @@ const Filters = ({ className }: FiltersProps) => {
 
     return (
         <section
-            className={`flex flex-col justify-between items-center gap-4 ${className}`}
+            className={`flex flex-col justify-between items-start gap-4 ${className}`}
         >
             <small className="font-medium hidden md:block">
                 Total Products: {products.length}
@@ -96,7 +96,7 @@ const Filters = ({ className }: FiltersProps) => {
                     <h2 className="font-bold text-left text-[#252427] text-xl">
                         Filters
                     </h2>
-                    <p className="px-3 bg-black text-white rounded-2xl">
+                    <p className="px-3 bg-black text-white rounded-md self-end">
                         {badgeFilters.length}
                     </p>
                 </div>

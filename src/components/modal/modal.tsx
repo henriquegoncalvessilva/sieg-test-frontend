@@ -74,7 +74,7 @@ const Modal = () => {
                     </div>
 
                     <Button
-                        className="cursor-pointer justify-center px-4 py-2  rounded-lg w-8 h-8 items-center flex flex-col "
+                        className="cursor-pointer justify-center px-4 py-2  rounded-lg w-8 h-8 items-center flex flex-col bg-black text-white "
                         onClick={() => toggleModal()}
                     >
                         ✕
