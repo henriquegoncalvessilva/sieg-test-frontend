@@ -1,6 +1,7 @@
 import HeartIcon from "../../assets/icons/heart.svg";
+import HeartFavoritedIcon from "../../assets/icons/favorite.svg";
 import { useProductStore } from "../../store/useProductStore";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Rating from "../rating/rating";
 
 type CardItemProps = {
@@ -16,26 +17,63 @@ const CardItem = React.memo(
     ({ nome, preco, avaliacoes, image, id, className }: CardItemProps) => {
         const setIdItem = useProductStore((state) => state.setIdItem);
         const openModal = useProductStore((state) => state.toggleModal);
+        const [isFavorite, setIsFavorite] = useState(false);
 
         const handleModal = () => {
             setIdItem(id);
             openModal();
         };
 
+        useEffect(() => {
+            const existing = JSON.parse(
+                localStorage.getItem("favorite") || "[]"
+            );
+
+            setIsFavorite(existing.includes(id));
+        }, []);
+
+        const handleFavorite = () => {
+            const existing = JSON.parse(
+                localStorage.getItem("favorite") || "[]"
+            );
+            if (!existing.includes(id)) {
+                const updated = [...existing, id];
+                localStorage.setItem("favorite", JSON.stringify(updated));
+                setIsFavorite(true);
+                return;
+            } else {
+                const updated = existing.filter((item: number) => item !== id);
+                localStorage.setItem("favorite", JSON.stringify(updated));
+                setIsFavorite(false);
+                return;
+            }
+        };
+
         return (
             <>
-                <button aria-pressed="true" type="button" onClick={handleModal}>
-                    <div
-                        className={`bg-[#fffffe] w-[196px] h-fit relative text-black p-2 pt-4 ${className}`}
+                <div
+                    className={`bg-[#fffffe] w-[196px] h-fit relative text-black p-2 pt-4 ${className}`}
+                >
+                    <button
+                        onClick={handleFavorite}
+                        aria-pressed="true"
+                        type="button"
+                        className="absolute right-3 text-black z-50 cursor-pointer"
                     >
                         <img
-                            src={HeartIcon}
-                            width={20}
+                            src={!isFavorite ? HeartIcon : HeartFavoritedIcon}
+                            width={28}
                             height={20}
                             loading="lazy"
-                            className="absolute right-3 text-black"
                             alt="Icone de favorito"
                         />
+                    </button>
+                    <button
+                        aria-pressed="true"
+                        type="button"
+                        onClick={handleModal}
+                        className="cursor-pointer"
+                    >
                         <img
                             loading="lazy"
                             src={image}
@@ -58,8 +96,8 @@ const CardItem = React.memo(
                                 <strong>$ {preco}</strong>
                             </div>
                         </div>
-                    </div>
-                </button>
+                    </button>
+                </div>
             </>
         );
     }
