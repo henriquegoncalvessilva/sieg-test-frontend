@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useProductStore } from "../../store/useProductStore";
 import type { Produto } from "../../interfaces/card-item.interface";
+import { useDebounce } from "../../hooks/useDebounce";
 
 type FiltersProps = {
     className?: string;
@@ -10,36 +11,55 @@ const Filters = ({ className }: FiltersProps) => {
     const [selectedCategory, setSelectedCategory] = useState<string>("");
     const [selectedPriceRange, setSelectedPriceRange] = useState<
         number | undefined
-    >(500);
-    const produtos = useProductStore((state) => state.produtos);
-    const setProdutos = useProductStore((state) => state.setProductsData);
-    const produtosOriginais = useRef<Produto[]>([]);
-
+    >(undefined);
+    const products = useProductStore((state) => state.produtos);
+    const setProducts = useProductStore((state) => state.setProductsData);
+    const originalProductsData = useRef<Produto[]>([]);
+    const debouncedValue = useDebounce(selectedPriceRange, 300);
+    const [badgeFilters, setBadgeFilters] = useState<
+        (string | number | undefined)[]
+    >([]);
     const { clearFilters, inputSearch } = useProductStore();
 
     const handleClearFilters = () => {
         setSelectedCategory("");
+        setBadgeFilters([]);
+        setSelectedPriceRange(undefined);
         clearFilters();
     };
 
     useEffect(() => {
-        if (produtosOriginais.current.length === 0) {
-            produtosOriginais.current = produtos;
-            console.log(produtosOriginais.current);
+        if (originalProductsData.current.length === 0) {
+            originalProductsData.current = products;
         }
-    }, [produtos]);
+        console.log(badgeFilters.length);
+    }, [products]);
+
+    const filteredProducts = useMemo(() => {
+        let filtereds = [...originalProductsData.current];
+
+        if (selectedCategory) {
+            filtereds = filtereds.filter(
+                (p) => p.category === selectedCategory
+            );
+        }
+
+        if (debouncedValue) {
+            filtereds = filtereds.filter((p) => p.price <= debouncedValue);
+        }
+
+        return filtereds;
+    }, [selectedCategory, debouncedValue]);
 
     useEffect(() => {
-        if (selectedCategory.length > 0) {
-            setProdutos(
-                produtosOriginais.current.filter(
-                    (p) => p.category === selectedCategory
-                )
-            );
-        } else {
-            setProdutos(produtosOriginais.current);
-        }
-    }, [selectedCategory]);
+        setProducts(filteredProducts);
+    }, [filteredProducts]);
+
+    useEffect(() => {
+        const filters = [selectedCategory, selectedPriceRange].filter(Boolean);
+
+        setBadgeFilters(filters);
+    }, [selectedCategory, selectedPriceRange, debouncedValue]);
 
     const categories: string[] = [
         "smartphones",
@@ -72,6 +92,8 @@ const Filters = ({ className }: FiltersProps) => {
                 <h2 className="font-bold text-left text-[#252427] text-xl">
                     Filtros
                 </h2>
+                {badgeFilters.length}
+
                 <button
                     aria-pressed="true"
                     disabled={inputSearch == "" && selectedCategory == ""}
@@ -84,7 +106,7 @@ const Filters = ({ className }: FiltersProps) => {
             </div>
             <div className="flex flex-col gap-4 w-full justify-between items-center">
                 <select
-                    className="p-2 border rounded w-full  text-[#252427] text-xl"
+                    className="p-2 border rounded w-full  text-[#252427] text-xl capitalize"
                     onChange={(e) => setSelectedCategory(e.target.value)}
                     value={selectedCategory}
                 >
@@ -93,11 +115,11 @@ const Filters = ({ className }: FiltersProps) => {
                     </option>
                     {categories.map((category) => (
                         <option
-                            className=" text-[#252427] text-xl"
+                            className="text-[#252427] text-xl capitalize"
                             key={category}
                             value={category}
                         >
-                            {category}
+                            {category.replace("-", " ")}
                         </option>
                     ))}
                 </select>
@@ -107,18 +129,20 @@ const Filters = ({ className }: FiltersProps) => {
                         className="p-2 rounded w-full  text-[#252427] text-xl "
                     >
                         Faixa de preço:
-                        {Number(selectedPriceRange).toFixed()}
+                        {selectedPriceRange
+                            ? Number(selectedPriceRange).toFixed()
+                            : 500}
                     </label>
                     <div className="flex w-full text-black items-center">
                         <p className="w-full text-center font-bold">$ 0</p>
                         <input
                             type="range"
                             id="price-range"
-                            min="500"
-                            max="8000"
-                            step="500"
+                            min="1"
+                            max="50000"
+                            step="1"
                             className="w-48"
-                            defaultValue={selectedPriceRange}
+                            defaultValue={500}
                             onChange={(e) =>
                                 setSelectedPriceRange(Number(e.target.value))
                             }
