@@ -76,6 +76,8 @@ const CardItem = React.memo(
                     >
                         <img
                             loading="lazy"
+                            srcSet={`${image} 180w`}
+                            sizes="180px"
                             src={image}
                             width={180}
                             height={180}
