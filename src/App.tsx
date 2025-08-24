@@ -18,7 +18,7 @@ function App() {
     return (
         <>
             <MainContainer>
-                <section className="w-full dark:bg-red-600">
+                <section className="w-full">
                     <Header />
                     <Filters
                         className={`${isDesktop ? "hidden" : "block w-full"}`}
