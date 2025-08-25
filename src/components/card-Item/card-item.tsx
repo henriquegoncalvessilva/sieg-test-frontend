@@ -65,6 +65,7 @@ const CardItem = React.memo(
                             width={28}
                             height={20}
                             loading="lazy"
+                            fetchPriority="low"
                             alt="Icone de favorito"
                         />
                     </button>
@@ -75,14 +76,14 @@ const CardItem = React.memo(
                         className="cursor-pointer"
                     >
                         <img
-                            loading="lazy"
-                            srcSet={`${image} 180w`}
                             sizes="180px"
                             src={image}
                             width={180}
                             height={180}
+                            className="object-cover"
+                            loading="lazy"
                             fetchPriority="high"
-                            alt="Imagem do Item"
+                            alt={`Imagem do Item o produto ${nome}"`}
                         />
                         <div className="flex flex-col gap-4 items-start p-2 text-left w-fit ">
                             <strong className="truncate overflow-hidden w-[160px]">
