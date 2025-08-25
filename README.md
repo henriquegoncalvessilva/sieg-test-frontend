@@ -44,12 +44,14 @@ Desenvolver uma página no estilo Catálogo de Produtos com funcionalidades como
 
 7 - Criação de um arquivo de **api** onde centralizei as chamadas para o endpoint.
 
+8 - Utilização de **ferramenta de IA(ChatGPT e Copilot)** para auxiliar no desenvolvimento e ter mais autonomia, visando: agilidade na entrega, resolução de bugs, performance da aplicação, etc.
+
 ## 📝 O que faria se tivesse mais tempo:
 
--   Trabalhar mais na interface e utilizar uma biblioteca como o shadcn, por exemplo.
+-   Trabalhar mais na interface, criar microinterações, e utilizar uma biblioteca como o shadcn, por exemplo.
 -   Ordenação por ordem alfabética. Cheguei a implementar um sort by, mas infelizmnete apareceram alguns bugs e acabei remove-o.
--   Tentar deixar o código mais semântico e otimizado, se fosse necessário.
--   Entender o porque que não está funcionando a troca entre os modos(dark & light).
+-   Tentar deixar o código mais semântico e otimizado, se for necessário.
+-   Entender o porque que não está funcionando a troca entre os modos(dark & light). Pode ser alguma configuração que deixei passar.
 
 ### 📝 Como rodar o projeto
 
