@@ -21,19 +21,13 @@ const Filters = ({ className }: FiltersProps) => {
         (string | number | undefined)[]
     >([]);
     const { clearFilters } = useProductStore();
-    const sortValue = useProductStore((state) => state.sortValue);
     const valueSearch = useProductStore((state) => state.inputSearch);
-    const setSort = useProductStore((state) => state.setSort);
 
     const handleClearFilters = () => {
         setSelectedCategory("");
         setBadgeFilters([]);
         setSelectedPriceRange(undefined);
         clearFilters();
-    };
-
-    const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setSort(e.target.value);
     };
 
     useEffect(() => {
@@ -59,23 +53,8 @@ const Filters = ({ className }: FiltersProps) => {
             result = result.filter((p) => p.price <= debouncedValue);
         }
 
-        switch (sortValue) {
-            case "asc":
-                result.sort((a, b) => a.title.localeCompare(b.title));
-                break;
-            case "desc":
-                result.sort((a, b) => b.title.localeCompare(a.title));
-                break;
-            case "expensive":
-                result.sort((a, b) => b.price - a.price);
-                break;
-            case "cheap":
-                result.sort((a, b) => a.price - b.price);
-                break;
-        }
-
         return result;
-    }, [valueSearch, selectedCategory, debouncedValue, sortValue]);
+    }, [valueSearch, selectedCategory, debouncedValue]);
 
     useEffect(() => {
         setProducts(filteredProducts);
@@ -112,45 +91,24 @@ const Filters = ({ className }: FiltersProps) => {
 
     return (
         <section
-            className={`flex flex-col justify-between items-start gap-4  ${className}`}
+            className={`flex flex-col justify-between items-start gap-4 ${className}`}
         >
             <small className="font-medium hidden md:block">
                 Total Products: {products.length}
             </small>
             <div className="flex gap-4 justify-between items-center w-full">
-                <div className="flex gap-8 items-start justify-start flex-col">
-                    <div className="flex gap-2 items-start justify-start">
-                        <h2 className="font-bold text-left text-[#252427] text-xl">
-                            Filters
-                        </h2>
-                        <p className="px-3 bg-black text-white rounded-md self-end">
-                            {badgeFilters.length}
-                        </p>
-                    </div>
-                    <div className="flex items-center self-start mb-5 gap-1">
-                        <p className="text-[#252427] text-sm md:text-xl">
-                            Sort by:{" "}
-                        </p>
-                        <form className="self-start w-fit bg-white p-2 rounded-md">
-                            <select
-                                name="sort"
-                                value={sortValue}
-                                id="sort"
-                                onChange={handleSortChange}
-                            >
-                                <option value="">Default</option>
-                                <option value="asc">A - Z</option>
-                                <option value="desc">Z - A</option>
-                                <option value="expensive">Expensive</option>
-                                <option value="cheap">Cheap</option>
-                            </select>
-                        </form>
-                    </div>
+                <div className="flex gap-2 items-center justify-center">
+                    <h2 className="font-bold text-left text-[#252427] text-xl">
+                        Filters
+                    </h2>
+                    <p className="px-3 bg-black text-white rounded-md self-end">
+                        {badgeFilters.length}
+                    </p>
                 </div>
 
                 <Button
                     disabled={badgeFilters.length === 0}
-                    className="cursor-pointer p-2  hover:text-white self-start "
+                    className="cursor-pointer p-2  hover:text-white "
                     onClick={handleClearFilters}
                 >
                     Clear Filters
@@ -187,7 +145,7 @@ const Filters = ({ className }: FiltersProps) => {
                         {selectedPriceRange ? (
                             Number(selectedPriceRange).toFixed()
                         ) : (
-                            <span>1000</span>
+                            <span> 0</span>
                         )}
                     </label>
 
