@@ -121,7 +121,7 @@ https://sieg-test-frontend.vercel.app/
 
 Estrutura das pastas e arquivos.
 
-![Estrutura do projeto]('./screenshots/pastas.png')
+![Estrutura do projeto](./screenshots/pastas.png)
 
 ## Layouts
 
