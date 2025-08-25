@@ -121,13 +121,7 @@ https://sieg-test-frontend.vercel.app/
 
 Estrutura das pastas e arquivos.
 
-![Estrutura do projeto]('')
-
-Obs: Preferi por dividir uma pasta para componentes e uma pasta para componentes em geral(ui). A estrutura basicamente de cada pasta consistem em:
-
--   componente
-    -   style
-    -   arquivoteste(se for o caso)
+![Estrutura do projeto]('./screenshots/pastas.png')
 
 ## Layouts
 
