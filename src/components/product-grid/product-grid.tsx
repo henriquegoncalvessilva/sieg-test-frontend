@@ -13,31 +13,28 @@ type ProductGridProps = {
 const ProductGrid = ({ produtos }: ProductGridProps) => {
     const loading = useProductStore((state) => state.loading);
     const isDesktop = useResponsive(1280);
-    const setSort = useProductStore((state) => state.setSort);
-    const sortValue = useProductStore((state) => state.sortValue);
 
     useProducts({ search: "" });
 
-    const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setSort(e.target.value);
-    };
-
     return (
         <>
-            <form>
-                <select
-                    name="sort"
-                    value={sortValue}
-                    id="sort"
-                    onChange={handleSortChange}
-                >
-                    <option value="">Sort for</option>
-                    <option value="asc">A - Z</option>
-                    <option value="desc">Z - A</option>
-                    <option value="expensive">Expensive</option>
-                    <option value="cheap">Cheap</option>
-                </select>
-            </form>
+            {/* <div className="flex items-center self-start mb-5 gap-1">
+                <p className="text-[#252427] text-sm md:text-xl">Sort by: </p>
+                <form className="self-start w-fit bg-white p-2 rounded-md">
+                    <select
+                        name="sort"
+                        value={sortValue}
+                        id="sort"
+                        onChange={handleSortChange}
+                    >
+                        <option value="">Default</option>
+                        <option value="asc">A - Z</option>
+                        <option value="desc">Z - A</option>
+                        <option value="expensive">Expensive</option>
+                        <option value="cheap">Cheap</option>
+                    </select>
+                </form>
+            </div> */}
             <section className="flex w-full justify-center gap-4 md:justify-start xl:justify-between xl:items-start relative">
                 <Filters
                     className={`${
