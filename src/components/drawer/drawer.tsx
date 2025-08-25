@@ -2,6 +2,7 @@ import { useProductStore } from "../../store/useProductStore";
 import type { Produto } from "../../interfaces/card-item.interface";
 import trashIcon from "../../assets/icons/trash.svg";
 import Button from "../button/button";
+import { useEffect } from "react";
 
 const Drawer = () => {
     const openDrawer = useProductStore((state) => state.isDrawerOpen);
@@ -13,6 +14,22 @@ const Drawer = () => {
         (state) => state.decrementCountCartItem
     );
 
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                toggleDrawer();
+            }
+        };
+
+        if (openDrawer) {
+            window.addEventListener("keydown", handleKeyDown);
+        }
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [openDrawer, toggleDrawer]);
+
     const handleRemoveItem = (item: Produto) => {
         removeItem(item);
     };
@@ -20,7 +37,7 @@ const Drawer = () => {
     return (
         <>
             {openDrawer && (
-                <Button
+                <button
                     className="fixed inset-0 bg-black opacity-20 z-40 cursor-pointer"
                     onClick={() => toggleDrawer()}
                 />
