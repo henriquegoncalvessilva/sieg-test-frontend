@@ -21,6 +21,8 @@ const Filters = ({ className }: FiltersProps) => {
         (string | number | undefined)[]
     >([]);
     const { clearFilters } = useProductStore();
+    const sortValue = useProductStore((state) => state.sortValue);
+    const valueSearch = useProductStore((state) => state.inputSearch);
 
     const handleClearFilters = () => {
         setSelectedCategory("");
@@ -36,20 +38,39 @@ const Filters = ({ className }: FiltersProps) => {
     }, [products]);
 
     const filteredProducts = useMemo(() => {
-        let filtereds = [...originalProductsData.current];
+        let result = [...originalProductsData.current];
 
-        if (selectedCategory) {
-            filtereds = filtereds.filter(
-                (p) => p.category === selectedCategory
+        if (valueSearch) {
+            result = result.filter((p) =>
+                p.title.toLowerCase().includes(valueSearch.toLowerCase())
             );
         }
 
-        if (debouncedValue) {
-            filtereds = filtereds.filter((p) => p.price <= debouncedValue);
+        if (selectedCategory) {
+            result = result.filter((p) => p.category === selectedCategory);
         }
 
-        return filtereds;
-    }, [selectedCategory, debouncedValue]);
+        if (debouncedValue) {
+            result = result.filter((p) => p.price <= debouncedValue);
+        }
+
+        switch (sortValue) {
+            case "asc":
+                result.sort((a, b) => a.title.localeCompare(b.title));
+                break;
+            case "desc":
+                result.sort((a, b) => b.title.localeCompare(a.title));
+                break;
+            case "expensive":
+                result.sort((a, b) => b.price - a.price);
+                break;
+            case "cheap":
+                result.sort((a, b) => a.price - b.price);
+                break;
+        }
+
+        return result;
+    }, [valueSearch, selectedCategory, debouncedValue, sortValue]);
 
     useEffect(() => {
         setProducts(filteredProducts);
@@ -103,13 +124,13 @@ const Filters = ({ className }: FiltersProps) => {
 
                 <Button
                     disabled={badgeFilters.length === 0}
-                    className="cursor-pointer disabled:text-gray-400 focus:border p-2"
+                    className="cursor-pointer p-2  hover:text-white "
                     onClick={handleClearFilters}
                 >
                     Clear Filters
                 </Button>
             </div>
-            <div className="flex flex-col gap-4 w-full justify-between items-start">
+            <form className="flex flex-col gap-4 w-full justify-between items-start mb-10">
                 <select
                     className="p-2 border rounded w-full  text-[#252427] text-xl capitalize"
                     onChange={(e) => setSelectedCategory(e.target.value)}
@@ -128,19 +149,26 @@ const Filters = ({ className }: FiltersProps) => {
                         </option>
                     ))}
                 </select>
-                <div className="flex  xl:flex-col items-center gap-2 w-full ">
+                <div
+                    className="flex 
+                          md:flex-row xl:flex-col items-center gap-2 w-full "
+                >
                     <label
                         htmlFor="price-range"
-                        className="p-2 px-0 rounded w-full  text-[#252427] text-xl "
+                        className="p-2 px-0 rounded w-full  text-[#252427] text-sm md:text-xl "
                     >
                         Price Range:
-                        {selectedPriceRange
-                            ? Number(selectedPriceRange).toFixed()
-                            : 0}
+                        {selectedPriceRange ? (
+                            Number(selectedPriceRange).toFixed()
+                        ) : (
+                            <span> 0</span>
+                        )}
                     </label>
 
                     <div className="flex w-full text-black items-center">
-                        <p className="w-full text-center font-bold">$ 0</p>
+                        <p className="w-2/12 text-center font-bold text-sm md:text-xl">
+                            $ 0
+                        </p>
                         <input
                             type="range"
                             id="price-range"
@@ -153,12 +181,12 @@ const Filters = ({ className }: FiltersProps) => {
                                 setSelectedPriceRange(Number(e.target.value))
                             }
                         />
-                        <p className="w-full text-center font-bold ">
+                        <p className="w-4/12 text-center font-bold text-sm md:text-xl ">
                             $ 50.000
                         </p>
                     </div>
                 </div>
-            </div>
+            </form>
         </section>
     );
 };
