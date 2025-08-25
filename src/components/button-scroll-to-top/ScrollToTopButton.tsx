@@ -27,14 +27,12 @@ function ScrollToTopButton() {
     return (
         <>
             {isVisible && (
-                <div className="fixed bottom-10 right-6 p-3 rounded-md bg-black text-white shadow-lg hover:bg-gray-800 transition">
-                    <Button
-                        onClick={scrollToTop}
-                        className="w-4 h-4 flex justify-center items-center"
-                    >
-                        <img src={ArrowUp} alt="Arrow Up" />
-                    </Button>
-                </div>
+                <Button
+                    onClick={scrollToTop}
+                    className="fixed bottom-10 right-3 p-3 w-10 h-10 md:w-16 md:h-16 rounded-md bg-black text-white shadow-lg hover:bg-gray-800 transition"
+                >
+                    <img src={ArrowUp} alt="Arrow Up" />
+                </Button>
             )}
         </>
     );
