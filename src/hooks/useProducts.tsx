@@ -14,7 +14,6 @@ const useProducts = ({ search }: UseProductsOptions) => {
     const setProductsData = useProductStore((state) => state.setProductsData);
     const setLoading = useProductStore((state) => state.setLoading);
     const data = useProductStore((state) => state.produtos);
-    const [_, setDebouncedSearch] = useState(search);
 
     const debouncedSearch = useDebounce(search, 300);
 
