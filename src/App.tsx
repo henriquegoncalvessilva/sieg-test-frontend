@@ -6,14 +6,11 @@ import { useResponsive } from "./hooks/useResponsive";
 import { useProductStore } from "./store/useProductStore";
 import Modal from "./components/modal/modal";
 import ScrollToTopButton from "./components/button-scroll-to-top/ScrollToTopButton";
-import useProducts from "./hooks/useProducts";
 import ProductGrid from "./components/product-grid/product-grid";
 
 function App() {
     const isDesktop = useResponsive(1280);
     const { produtos } = useProductStore();
-
-    useProducts({ search: "" });
 
     return (
         <>
