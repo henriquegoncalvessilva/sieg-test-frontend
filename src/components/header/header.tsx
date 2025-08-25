@@ -1,5 +1,6 @@
 import cartIcon from "../../assets/icons/cart.svg";
 import searchIcon from "../../assets/icons/search.svg";
+import filterIcon from "../../assets/icons/filter.svg";
 import Drawer from "../drawer/drawer";
 import { useProductStore } from "../../store/useProductStore";
 import { useEffect, useState } from "react";
@@ -7,6 +8,7 @@ import { useDebounce } from "../../hooks/useDebounce";
 
 const Header = () => {
     const drawer = useProductStore((state) => state.toggleDrawer);
+    const filter = useProductStore((state) => state.toggleFilter);
     const countCartItem = useProductStore(
         (state) => state.totalCartItems?.length
     );
@@ -38,18 +40,31 @@ const Header = () => {
                                     Total products: {products.length}
                                 </small>
                             </div>
-                            <div
-                                className="relative cursor-pointer"
-                                onClick={() => drawer()}
-                            >
-                                <img
-                                    className="self-end"
-                                    src={cartIcon}
-                                    width={32}
-                                    alt="Icone carrinho de compra"
-                                />
-                                <div className="absolute right-0 top-0 bg-black text-white text-xs w-4 h-4 flex justify-center items-center rounded-full">
-                                    {countCartItem}
+                            <div className="flex gap-4 items-center">
+                                <div
+                                    className="relative cursor-pointer xl:hidden "
+                                    onClick={() => filter()}
+                                >
+                                    <img
+                                        className="self-end"
+                                        src={filterIcon}
+                                        width={32}
+                                        alt="Icone carrinho de compra"
+                                    />
+                                </div>
+                                <div
+                                    className="relative cursor-pointer"
+                                    onClick={() => drawer()}
+                                >
+                                    <img
+                                        className="self-end"
+                                        src={cartIcon}
+                                        width={32}
+                                        alt="Icone carrinho de compra"
+                                    />
+                                    <div className="absolute right-0 top-0 bg-black text-white text-xs w-4 h-4 flex justify-center items-center rounded-full">
+                                        {countCartItem}
+                                    </div>
                                 </div>
                             </div>
                         </div>

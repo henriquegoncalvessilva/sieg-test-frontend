@@ -3,6 +3,7 @@ import type { Produto } from "../interfaces/card-item.interface";
 
 interface StoreState {
     isDrawerOpen: boolean;
+    isFilterOpen: boolean;
     loading: boolean;
     isModalOpen: boolean;
     countCartItem: Produto | null;
@@ -19,6 +20,7 @@ interface StoreState {
     setSort: (value: string) => void;
     clearIdItem: () => void;
     toggleDrawer: () => void;
+    toggleFilter: () => void;
     toggleModal: () => void;
     clearFilters: () => void;
     incrementCountCartItem: (product: Produto, quantidade: number) => void;
@@ -29,6 +31,7 @@ interface StoreState {
 
 export const useProductStore = create<StoreState>((set) => ({
     isDrawerOpen: false,
+    isFilterOpen: false,
     loading: true,
     isModalOpen: false,
     idItem: 0,
@@ -107,6 +110,10 @@ export const useProductStore = create<StoreState>((set) => ({
     toggleDrawer: () =>
         set((state) => ({
             isDrawerOpen: !state.isDrawerOpen,
+        })),
+    toggleFilter: () =>
+        set((state) => ({
+            isFilterOpen: !state.isFilterOpen,
         })),
 
     toggleModal: () =>
