@@ -146,7 +146,7 @@ const Filters = ({ className }: FiltersProps) => {
                         {selectedPriceRange ? (
                             Number(selectedPriceRange).toFixed()
                         ) : (
-                            <span> 0</span>
+                            <span>1000</span>
                         )}
                     </label>
 
