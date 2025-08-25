@@ -112,7 +112,7 @@ const Filters = ({ className }: FiltersProps) => {
 
     return (
         <section
-            className={`flex flex-col justify-between items-start gap-4 ${className}`}
+            className={`flex flex-col justify-between items-start gap-4  ${className}`}
         >
             <small className="font-medium hidden md:block">
                 Total Products: {products.length}
@@ -183,11 +183,11 @@ const Filters = ({ className }: FiltersProps) => {
                         htmlFor="price-range"
                         className="p-2 px-0 rounded w-full  text-[#252427] text-sm md:text-xl "
                     >
-                        Price Range:
+                        Price Range: $
                         {selectedPriceRange ? (
                             Number(selectedPriceRange).toFixed()
                         ) : (
-                            <span> 0</span>
+                            <span>1000</span>
                         )}
                     </label>
 
@@ -202,7 +202,7 @@ const Filters = ({ className }: FiltersProps) => {
                             max="50000"
                             step="10"
                             className="w-48"
-                            defaultValue={500}
+                            defaultValue={1000}
                             onChange={(e) =>
                                 setSelectedPriceRange(Number(e.target.value))
                             }
