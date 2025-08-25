@@ -3,6 +3,7 @@ import axios from "axios";
 import { useProductStore } from "../store/useProductStore";
 import type { Produto } from "../interfaces/card-item.interface";
 import { fetchAllProducts, fetchProductsByName } from "../services/api";
+import { useDebounce } from "./useDebounce";
 
 interface UseProductsOptions {
     search?: string;
@@ -15,12 +16,7 @@ const useProducts = ({ search }: UseProductsOptions) => {
     const data = useProductStore((state) => state.produtos);
     const [_, setDebouncedSearch] = useState(search);
 
-    useEffect(() => {
-        const handler = setTimeout(() => {
-            setDebouncedSearch(search);
-        }, 500);
-        return () => clearTimeout(handler);
-    }, [search]);
+    const debouncedSearch = useDebounce(search, 300);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -30,7 +26,9 @@ const useProducts = ({ search }: UseProductsOptions) => {
                 let productsFetch: Produto[] = [];
 
                 if (search) {
-                    productsFetch = await fetchProductsByName(search);
+                    productsFetch = await fetchProductsByName(
+                        debouncedSearch ?? ""
+                    );
                 } else {
                     productsFetch = await fetchAllProducts();
                 }
@@ -46,7 +44,7 @@ const useProducts = ({ search }: UseProductsOptions) => {
         };
 
         fetchProducts();
-    }, [search]);
+    }, [debouncedSearch]);
 
     return { data, error };
 };
