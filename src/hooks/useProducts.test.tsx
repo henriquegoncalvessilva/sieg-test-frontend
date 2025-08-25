@@ -1,12 +1,12 @@
-// products.test.tsx
 import { renderHook, waitFor } from "@testing-library/react";
-import * as api from "../services/api"; // onde estão suas funções fetchProductsByName, fetchAllProducts
+import * as api from "../services/api";
 import useProducts from "./useProducts";
+import type { Produto } from "../interfaces/card-item.interface";
 
 jest.mock("../services/api");
 
 test("deve retornar produtos mockados", async () => {
-    const mockProducts = [
+    const mockProducts: Produto[] = [
         {
             id: 1,
             title: "Produto Teste",
@@ -15,6 +15,9 @@ test("deve retornar produtos mockados", async () => {
             rating: 4.5,
             description:
                 "Lorem ipsum dolor sit amet consectetur adipisicing elit",
+            brand: "Marca do Produto",
+            quantidade: 1,
+            thumbnail: "image.png",
         },
     ];
 
