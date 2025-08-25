@@ -1,5 +1,5 @@
 import { useProductStore } from "../../store/useProductStore";
-import type { Produto } from "../../interfaces/card-item.interface";
+import type { Produto } from "../../interfaces/produto.interface";
 import trashIcon from "../../assets/icons/trash.svg";
 import Button from "../button/button";
 import { useEffect } from "react";

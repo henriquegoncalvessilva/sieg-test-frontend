@@ -1,6 +1,6 @@
 import useProducts from "../../hooks/useProducts";
 import { useResponsive } from "../../hooks/useResponsive";
-import type { Produto } from "../../interfaces/card-item.interface";
+import type { Produto } from "../../interfaces/produto.interface";
 import { useProductStore } from "../../store/useProductStore";
 import CardItem from "../card-Item/card-item";
 import CardItemSkeleton from "../card-Item/card-item-skeleton";

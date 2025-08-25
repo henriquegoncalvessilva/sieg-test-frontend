@@ -10,9 +10,9 @@ Desenvolver uma página no estilo Catálogo de Produtos com funcionalidades como
 
 ---
 
-# ⭐Decisões técnicas:
+# 📝 Decisões técnicas:
 
-1 - Implementação de filtros por nome, preço e categoria. Onde esses últimos **não são feitos através de novas requisições** e sim com base nos dados obtidos na primeira consulta ao endpoint.
+1 - Implementação de filtros por nome, preço e categoria. Onde esses últimos **não são feitos através de novas requisições** e sim com base nos dados obtidos na primeira consulta ao endpoint. Evitando assim requisições desnecessárias.
 
 2 - **Não** utilizei CSS adicional, apenas o tailwind.
 
@@ -23,17 +23,31 @@ Desenvolver uma página no estilo Catálogo de Produtos com funcionalidades como
 -   **Axios** - para realizar fetch do endpoint sugerido ( https://dummyjson.com/ )
 
 -   **Zustand** - Fácil manuseio para gerenciar de forma global a aplicação, para que evite por exemplo, Prop drilling e o que torna o código mais flexivel.
+
 -   **Tailwind** - o que facilita bastante durante a criação de interfaces amigáveis e que necessitam de um desenvolvimento mais "rápido". Com isso, utilizei a abordagem **mobile first** como ponto inicial para o meu desenvolvimento.
+
 -   **CleanUp** - Para evitar que os componentes continuem executando alguma ação mesmo depois ele não exista mais.
+
 -   **Componentização** - Fragmentação do código em diversos componentes, afim de deixa-lo mais legível, testável e modular.
--   **Custom Hooks** - Foram criados com a finalidade de: - **useDebounce** - Fazer com que os dados do input, por exemplo, não seja enviado a cada caractere digitado, mas só após 300ms, para que não gere gargalo durante o envio das requisições. - **useResponsive** - Tem como objetivo identificar a resolução atual da aplicação e aplicar alguma ação com base nisso. Utilizei de maneira simples e isolada, apenas para exemplificar a utilização, já que apenas com tailwind nós conseguiremos um resultado semelhante. - **useProducts** - obter as informações que serão requisitadas, seja na primeira requisição ou através do nome do item.
-    6 - **Testes unitários** - foi utilizado o Jest para fazer pequenos testes unitários, afim de garantir a entrega da funcionalidades implementadas.
+
+-   **Custom Hooks** - Foram criados com a finalidade de:
+
+    -   **useDebounce** - Fazer com que os dados do input, por exemplo, não seja enviado a cada caractere digitado, mas só após 300ms, para que não gere gargalo durante o envio das requisições.
+
+    -   **useResponsive** - Tem como objetivo identificar a resolução atual da aplicação e aplicar alguma ação com base nisso. Utilizei de maneira simples e isolada, apenas para exemplificar a utilização, já que apenas com tailwind nós conseguiremos um resultado semelhante.
+
+    -   **useProducts** - obter as informações que serão requisitadas, seja na primeira requisição ou através do nome do item.
+
+    -   **useProductStore** - Centralizei diversas funções e parâmetros dentro dessa store do Zustand, afim de ter uma maior gerencia sobre as informações constantes na aplicação.
+
+6 - **Testes unitários** - foi utilizado o Jest para fazer 2 pequenos testes unitários, afim de garantir a entrega da funcionalidades implementadas.
 
 7 - Criação de um arquivo de **api** onde centralizei as chamadas para o endpoint.
 
 ## 📝 O que faria se tivesse mais tempo:
 
 -   Trabalhar mais na interface e utilizar uma biblioteca como o shadcn, por exemplo.
+-   Ordenação por ordem alfabética. Cheguei a implementar um sort by, mas infelizmnete apareceram alguns bugs e acabei remove-o.
 -   Tentar deixar o código mais semântico e otimizado, se fosse necessário.
 -   Entender o porque que não está funcionando a troca entre os modos(dark & light).
 
@@ -68,8 +82,6 @@ Rode os testes unitários com o código abaixo
 ```bash
   npm run test
 ```
-
-### 📝 Decisões técnicas
 
 ### Rodando o projeto localmente
 
@@ -121,15 +133,15 @@ As telas foram testadas usando o plugin(navegador) Reponsive Viewer e o inspecto
 
 ### Mobile
 
-![Mobile](./screenshots/01.png)
+![Mobile](./screenshots/mobile.png)
 
 ### Tablet
 
-![Tablet](./screenshots/02.png)
+![Tablet](./screenshots/tablet.png)
 
 ### Notebook - Desktop
 
-![Notebook - Desktop](./screenshots/03.png)
+![Notebook - Desktop](./screenshots/desktop.png)
 
 ## Status de acessibilidade e desempenho - Lighthouse
 

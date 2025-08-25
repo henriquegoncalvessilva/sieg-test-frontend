@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useProductStore } from "../store/useProductStore";
-import type { Produto } from "../interfaces/card-item.interface";
+import type { Produto } from "../interfaces/produto.interface";
 import { fetchAllProducts, fetchProductsByName } from "../services/api";
 import { useDebounce } from "./useDebounce";
 

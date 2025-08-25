@@ -1,7 +1,7 @@
 import { renderHook, waitFor } from "@testing-library/react";
 import * as api from "../services/api";
 import useProducts from "./useProducts";
-import type { Produto } from "../interfaces/card-item.interface";
+import type { Produto } from "../interfaces/produto.interface";
 
 jest.mock("../services/api");
 

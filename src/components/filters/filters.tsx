@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useProductStore } from "../../store/useProductStore";
-import type { Produto } from "../../interfaces/card-item.interface";
+import type { Produto } from "../../interfaces/produto.interface";
 import { useDebounce } from "../../hooks/useDebounce";
 import Button from "../button/button";
 
@@ -116,6 +116,7 @@ const Filters = ({ className }: FiltersProps) => {
             </div>
             <form className="flex flex-col gap-4 w-full justify-between items-start mb-10">
                 <select
+                    aria-label="categories"
                     className="p-2 border rounded w-full  text-[#252427] text-xl capitalize"
                     onChange={(e) => setSelectedCategory(e.target.value)}
                     value={selectedCategory}

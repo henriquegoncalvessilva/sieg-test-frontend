@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { Produto } from "../interfaces/card-item.interface";
+import type { Produto } from "../interfaces/produto.interface";
 
 interface StoreState {
     isDrawerOpen: boolean;

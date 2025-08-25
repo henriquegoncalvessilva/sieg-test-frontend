@@ -2,7 +2,7 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Filters from "./filters";
 import { useProductStore } from "../../store/useProductStore";
-import type { Produto } from "../../interfaces/card-item.interface";
+import type { Produto } from "../../interfaces/produto.interface";
 
 jest.mock("../../store/useProductStore");
 
