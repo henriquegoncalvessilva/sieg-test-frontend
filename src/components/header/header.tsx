@@ -2,36 +2,24 @@ import cartIcon from "../../assets/icons/cart.svg";
 import searchIcon from "../../assets/icons/search.svg";
 import Drawer from "../drawer/drawer";
 import { useProductStore } from "../../store/useProductStore";
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useDebounce } from "../../hooks/useDebounce";
-import useProducts from "../../hooks/useProducts";
 
 const Header = () => {
     const drawer = useProductStore((state) => state.toggleDrawer);
     const countCartItem = useProductStore(
         (state) => state.totalCartItems?.length
     );
-    const input = useRef(null);
-    const valueSearch = useProductStore((state) => state.inputSearch);
-    const setInputValue = useProductStore((state) => state.setInputValue);
-    const debouncedSearch = useDebounce(valueSearch.trim(), 300);
+    const setInputValueStore = useProductStore((state) => state.setInputValue);
     const products = useProductStore((state) => state.produtos);
-
-    useProducts({ search: debouncedSearch });
-    const { inputSearch } = useProductStore();
-
-    useEffect(() => {
-        if (debouncedSearch) {
-            setInputValue(debouncedSearch);
-        }
-    }, [debouncedSearch]);
+    const [inputValue, setInputValue] = useState("");
+    const debouncedSearch = useDebounce(inputValue, 300);
 
     useEffect(() => {
-        if (input.current) {
-            (input.current as HTMLInputElement).value = inputSearch;
+        if (debouncedSearch !== undefined) {
+            setInputValueStore(debouncedSearch);
         }
-    }, [inputSearch]);
-
+    }, [debouncedSearch, setInputValueStore]);
     return (
         <>
             <header className="py-5 w-full flex flex-col justify-center gap-6">
@@ -70,9 +58,9 @@ const Header = () => {
                         <img src={searchIcon} alt="" width={26} />
                         <input
                             type="text"
+                            value={inputValue}
                             placeholder="Iphone, Chair, Samsung, etc"
                             className="w-full py-2 px-3 "
-                            ref={input}
                             onChange={(e) => setInputValue(e.target.value)}
                         />
                     </div>
