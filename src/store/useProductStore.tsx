@@ -7,14 +7,16 @@ interface StoreState {
     isModalOpen: boolean;
     countCartItem: Produto | null;
     totalCartItems: Produto[] | null;
-    inputSearch: string;
+    inputSearch: string | null;
     idItem: number | null;
     produtos: Produto[];
+    sortValue: string;
     getIdItem: (value: number) => void;
     setIdItem: (value: number) => void;
     setInputValue: (value: string) => void;
     setProductsData: (products: Produto[]) => void;
     setLoading: (value: boolean) => void;
+    setSort: (value: string) => void;
     clearIdItem: () => void;
     toggleDrawer: () => void;
     toggleModal: () => void;
@@ -30,10 +32,15 @@ export const useProductStore = create<StoreState>((set) => ({
     loading: true,
     isModalOpen: false,
     idItem: 0,
-    inputSearch: "",
+    inputSearch: null,
     countCartItem: null,
     totalCartItems: [],
     produtos: [],
+    sortValue: "asc",
+    setSort: (value) =>
+        set({
+            sortValue: value,
+        }),
     incrementItem: (product: Produto) =>
         set((state) => {
             const exists = state.totalCartItems?.find(
