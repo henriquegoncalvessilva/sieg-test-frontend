@@ -26,7 +26,7 @@ Desenvolver uma página no estilo Catálogo de Produtos com funcionalidades como
 
 -   **Tailwind** - o que facilita bastante durante a criação de interfaces amigáveis e que necessitam de um desenvolvimento mais "rápido". Com isso, utilizei a abordagem **mobile first** como ponto inicial para o meu desenvolvimento.
 
--   **CleanUp** - Para evitar que os componentes continuem executando alguma ação mesmo depois ele não exista mais.
+-   **CleanUp UseEffect** - Para evitar que os componentes continuem executando alguma ação mesmo depois ele não exista mais.
 
 -   **Componentização** - Fragmentação do código em diversos componentes, afim de deixa-lo mais legível, testável e modular.
 
@@ -121,7 +121,7 @@ https://sieg-test-frontend.vercel.app/
 
 Estrutura das pastas e arquivos.
 
-![Estrutura do projeto](./screenshots/pastas.png)
+![Estrutura do projeto]('./screenshots/pastas.png')
 
 ## Layouts
 
