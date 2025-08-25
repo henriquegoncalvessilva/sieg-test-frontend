@@ -23,5 +23,4 @@ test("deve retornar produtos mockados", async () => {
 
     const { result } = renderHook(() => useProducts({ search: "" }));
     await waitFor(() => expect(result.current.data.length).toBeGreaterThan(0));
-    console.log(result.current.data);
 });
