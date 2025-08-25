@@ -44,8 +44,8 @@ const Modal = () => {
     return (
         <>
             {openModal && (
-                <Button
-                    className="fixed inset-0 bg-black opacity-20  z-40"
+                <button
+                    className="fixed inset-0 bg-black opacity-20  z-40 cursor-pointer"
                     onClick={() => toggleModal()}
                 />
             )}
