@@ -10,9 +10,9 @@ Desenvolver uma página no estilo Catálogo de Produtos com funcionalidades como
 
 ---
 
-# ⭐Informações gerais e algumas regras:
+# ⭐Decisões técnicas:
 
-1 - Filtros por nome, preço e categoria. Onde esses últimos **não são feitos através de novas requisições** e sim com base nos dados obtidos na primeira consulta ao endpoint.
+1 - Implementação de filtros por nome, preço e categoria. Onde esses últimos **não são feitos através de novas requisições** e sim com base nos dados obtidos na primeira consulta ao endpoint.
 
 2 - **Não** utilizei CSS adicional, apenas o tailwind.
 
@@ -23,15 +23,13 @@ Desenvolver uma página no estilo Catálogo de Produtos com funcionalidades como
 -   **Axios** - para realizar fetch do endpoint sugerido ( https://dummyjson.com/ )
 
 -   **Zustand** - Fácil manuseio para gerenciar de forma global a aplicação, para que evite por exemplo, Prop drilling e o que torna o código mais flexivel.
--   **Tailwind** - o que facilita bastante durante a criação de interfaces amigáveis e que necessitam de um desenvolvimento mais "rápido".
+-   **Tailwind** - o que facilita bastante durante a criação de interfaces amigáveis e que necessitam de um desenvolvimento mais "rápido". Com isso, utilizei a abordagem **mobile first** como ponto inicial para o meu desenvolvimento.
 -   **CleanUp** - Para evitar que os componentes continuem executando alguma ação mesmo depois ele não exista mais.
 -   **Componentização** - Fragmentação do código em diversos componentes, afim de deixa-lo mais legível, testável e modular.
--   **Custom Hooks** - Foram criados com a finalidade de:
-    -   **useDebounce** - Fazer com que os dados do input, por exemplo, não seja enviado a cada caractere digitado, mas só após 300ms, para que não gere gargalo durante o envio das requisições.
-    -   **useResponsive** - Tem como objetivo identificar a resolução atual da aplicação e aplicar alguma ação com base nisso. Utilizei de maneira simples e isolada, apenas para exemplificar a utilização, já que apenas com tailwind nós conseguiremos um resultado semelhante.
-    -   **useProducts** - obter as informações que serão requisitadas, seja na primeira requisição ou através do nome do item.
--   **Testes unitários** - foi utilizado o Jest para fazer pequenos testes unitários, afim de garantir a entrega da funcionalidades implementadas.
--   Criação de um arquivo de **api** onde centralizei as chamadas para o endpoint.
+-   **Custom Hooks** - Foram criados com a finalidade de: - **useDebounce** - Fazer com que os dados do input, por exemplo, não seja enviado a cada caractere digitado, mas só após 300ms, para que não gere gargalo durante o envio das requisições. - **useResponsive** - Tem como objetivo identificar a resolução atual da aplicação e aplicar alguma ação com base nisso. Utilizei de maneira simples e isolada, apenas para exemplificar a utilização, já que apenas com tailwind nós conseguiremos um resultado semelhante. - **useProducts** - obter as informações que serão requisitadas, seja na primeira requisição ou através do nome do item.
+    6 - **Testes unitários** - foi utilizado o Jest para fazer pequenos testes unitários, afim de garantir a entrega da funcionalidades implementadas.
+
+7 - Criação de um arquivo de **api** onde centralizei as chamadas para o endpoint.
 
 ## 📝 O que faria se tivesse mais tempo:
 
@@ -44,13 +42,13 @@ Desenvolver uma página no estilo Catálogo de Produtos com funcionalidades como
 Antes de tudo, você precisa clonar o repositório
 
 ```bash
-  git clone https://github.com/henriquegoncalvessilva/desafio-lacrei-saude
+  git clone https://github.com/henriquegoncalvessilva/sieg-test-frontend.git
 ```
 
 Após isso, entre no diretório
 
 ```bash
-  cd minha-pasta/desafio-tech-front-lacreisaude\front>
+  cd minha-pasta/sieg-test-frontend/>
 ```
 
 Instale todas as dependências. Esse passo é muito importante para o sucesso das demais etapas.
@@ -109,7 +107,7 @@ https://sieg-test-frontend.vercel.app/
 
 Estrutura das pastas e arquivos.
 
-![Estrutura do projeto](https://i.ibb.co/d0xf91Wb/Captura-de-tela-2025-06-20-160908.png)
+![Estrutura do projeto]('')
 
 Obs: Preferi por dividir uma pasta para componentes e uma pasta para componentes em geral(ui). A estrutura basicamente de cada pasta consistem em:
 
@@ -135,6 +133,4 @@ As telas foram testadas usando o plugin(navegador) Reponsive Viewer e o inspecto
 
 ## Status de acessibilidade e desempenho - Lighthouse
 
-![Acessibilidade](./screenshots/acessibilidade_stats.png)
-
-![Desempenho](./screenshots/performance_stats.png)
+![Status](./screenshots/lighthouse.png)
